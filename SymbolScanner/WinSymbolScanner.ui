@@ -6,20 +6,37 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>1057</width>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>WinSymbolScanner</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QTreeView" name="treeViewDirs">
+       <property name="headerHidden">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QListView" name="listViewFiles"/>
+      <widget class="QGraphicsView" name="graphicsViewPreview"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>1057</width>
      <height>21</height>
     </rect>
    </property>
