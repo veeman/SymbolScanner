@@ -1,5 +1,5 @@
 #include "WinSymbolScanner.h"
-#include "WidgetColorSelector.h"
+#include "WinImageFilterOptions.h"
 #include <QGraphicsScene>
 #include <QFileSystemModel>
 #include <QDir>
@@ -10,7 +10,7 @@ WinSymbolScanner::WinSymbolScanner(QWidget *parent)
 {
   ui.setupUi(this);
 
-  (new WidgetColorSelector())->show();
+  (new WinImageFilterOptions())->show();
 
   // setup image preview
   previewScene = new QGraphicsScene(ui.graphicsViewPreview);
