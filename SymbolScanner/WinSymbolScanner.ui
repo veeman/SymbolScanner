@@ -21,11 +21,24 @@
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QTreeView" name="treeViewDirs">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="headerHidden">
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QListView" name="listViewFiles"/>
+      <widget class="QListView" name="listViewFiles">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
       <widget class="QGraphicsView" name="graphicsViewPreview"/>
      </widget>
     </item>

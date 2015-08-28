@@ -1,4 +1,5 @@
 #include "WinSymbolScanner.h"
+#include "WidgetColorSelector.h"
 #include <QGraphicsScene>
 #include <QFileSystemModel>
 #include <QDir>
@@ -8,6 +9,8 @@ WinSymbolScanner::WinSymbolScanner(QWidget *parent)
   : QMainWindow(parent), dirModel(nullptr), fileModel(nullptr), previewScene(nullptr)
 {
   ui.setupUi(this);
+
+  (new WidgetColorSelector())->show();
 
   // setup image preview
   previewScene = new QGraphicsScene(ui.graphicsViewPreview);
