@@ -32,6 +32,7 @@ WinSymbolScanner::WinSymbolScanner(QWidget *parent)
 
   // setup file listener
   fileModel = new QFileSystemModel(this);
+  dirModel->setRootPath(dirModel->myComputer().toString());
   fileModel->setFilter(QDir::Files);
   fileModel->setNameFilterDisables(false);
   fileModel->setReadOnly(false);
@@ -68,9 +69,10 @@ void WinSymbolScanner::onc_treeViewSelectionModel_currentChanged(const QModelInd
 {
   // selected directory changed, update file listener
   ui.listViewFiles->setRootIndex(fileModel->setRootPath(dirModel->filePath(current)));
+  setSelectedFile();
+
   fileModel->setNameFilters(QStringList());
   fileModel->setNameFilters(QStringList() << "*.bmp" << "*.jpg" << "*.png");
-  setSelectedFile();
 }
 
 void WinSymbolScanner::onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)

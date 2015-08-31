@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "ui_WinImageFilterOptions.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 class WinImageFilterOptions : public QWidget
 {
@@ -14,6 +17,8 @@ public:
 
 private:
     Ui::WinImageFilterOptions ui;
+    QGraphicsScene *previewScene;
+    cv::Mat imMat;
 
 private slots:
   void on_widgetLowerFilter_colorChanged(QColor color);
