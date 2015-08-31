@@ -1,29 +1,48 @@
 #include "WinImageFilterOptions.h"
-
+#include "qtcvHelper.h"
+#include <QShowEvent>
+#include <QPixmap>
+#include <QDebug>
 
 WinImageFilterOptions::WinImageFilterOptions(QWidget *parent)
-  : QWidget(parent), previewScene(nullptr)
+  : QWidget(parent)
 {
   ui.setupUi(this);
 
-  previewScene = new QGraphicsScene(ui.graphicsViewProcessed);
-  ui.graphicsViewProcessed->setScene(previewScene);
+  imMatOrignal = cv::imread("F:\\ScannedNN\\A.png", cv::IMREAD_COLOR);
+  cv::cvtColor(imMatOrignal, imMatPreview, cv::COLOR_BGR2RGB);
+  ui.labelImage->setPixmap(cvMatToQPixmap(imMatPreview));
 
-  /*
-  imMat = cv::imread("file.png", cv::IMREAD_COLOR);
-
-  cv::cvtColor(imMat, imMat, CV_BGR2RGB);
-  QImage image(imMat.data, imMat.cols, imMat.rows, imMat.step, QImage::Format_RGB888);
-
-  previewScene->clear();
-
-  previewScene->addPixmap(QPixmap::fromImage(image));
-  */
+  refreshPreviewImage();
 }
 
 WinImageFilterOptions::~WinImageFilterOptions()
 {
 
+}
+
+void WinImageFilterOptions::refreshPreviewImage(void)
+{
+  if (ui.buttonGroup->checkedButton() == ui.radioButtonRaster)
+  {
+    cv::Scalar low = qColorToCvScalar(ui.colorLineEditRasterLower->color());
+    cv::Scalar up = qColorToCvScalar(ui.colorLineEditRasterUpper->color());
+
+    cv::cvtColor(imMatOrignal, imMatPreview, cv::COLOR_BGR2HSV);
+    cv::inRange(imMatPreview, low, up, imMatPreview);
+  } else if (ui.buttonGroup->checkedButton() == ui.radioButtonSign)
+  {
+    cv::Scalar low = qColorToCvScalar(ui.colorLineEditSignsLower->color());
+    cv::Scalar up = qColorToCvScalar(ui.colorLineEditSignsUpper->color());
+
+    cv::cvtColor(imMatOrignal, imMatPreview, cv::COLOR_BGR2HSV);
+    cv::inRange(imMatPreview, low, up, imMatPreview);
+  } else
+  {
+    cv::cvtColor(imMatOrignal, imMatPreview, cv::COLOR_BGR2RGB);
+  }
+
+  ui.labelImage->setPixmap(cvMatToQPixmap(imMatPreview));
 }
 
 void WinImageFilterOptions::on_widgetLowerFilter_colorChanged(QColor color)
@@ -32,6 +51,7 @@ void WinImageFilterOptions::on_widgetLowerFilter_colorChanged(QColor color)
     ui.colorLineEditRasterLower->setColor(color);
   else if (ui.buttonGroup->checkedButton() == ui.radioButtonSign)
       ui.colorLineEditSignsLower->setColor(color);
+  refreshPreviewImage();
 }
 
 void WinImageFilterOptions::on_widgetUpperFilter_colorChanged(QColor color)
@@ -40,6 +60,7 @@ void WinImageFilterOptions::on_widgetUpperFilter_colorChanged(QColor color)
     ui.colorLineEditRasterUpper->setColor(color);
   else if (ui.buttonGroup->checkedButton() == ui.radioButtonSign)
     ui.colorLineEditSignsUpper->setColor(color);
+  refreshPreviewImage();
 }
 
 void WinImageFilterOptions::on_buttonGroup_buttonClicked(QAbstractButton * button)
@@ -57,4 +78,5 @@ void WinImageFilterOptions::on_buttonGroup_buttonClicked(QAbstractButton * butto
   {
 
   }
+  refreshPreviewImage();
 }

@@ -1,16 +1,13 @@
 #include "WinSymbolScanner.h"
-#include "WinImageFilterOptions.h"
 #include <QGraphicsScene>
 #include <QFileSystemModel>
 #include <QDir>
-#include <QResizeEvent>
+#include <QShowEvent>
 
 WinSymbolScanner::WinSymbolScanner(QWidget *parent)
   : QMainWindow(parent), dirModel(nullptr), fileModel(nullptr), previewScene(nullptr)
 {
   ui.setupUi(this);
-
-  (new WinImageFilterOptions())->show();
 
   // setup image preview
   previewScene = new QGraphicsScene(ui.graphicsViewPreview);
@@ -51,7 +48,7 @@ WinSymbolScanner::~WinSymbolScanner()
 bool WinSymbolScanner::eventFilter(QObject* object, QEvent* event)
 {
   // fit preview image in widget on resize event
-  if (object == ui.graphicsViewPreview && event->type() == QEvent::Resize)
+  if (object == ui.graphicsViewPreview && (event->type() == QEvent::Resize || event->type() == QEvent::Show))
   {
     ui.graphicsViewPreview->fitInView(previewScene->sceneRect(), Qt::KeepAspectRatio);
     return true;
@@ -60,7 +57,7 @@ bool WinSymbolScanner::eventFilter(QObject* object, QEvent* event)
   return false;
 }
 
-void WinSymbolScanner::resizeEvent(QResizeEvent* event)
+void WinSymbolScanner::showEvent(QShowEvent * event)
 {
   eventFilter(ui.graphicsViewPreview, event);
 }
@@ -91,5 +88,4 @@ void WinSymbolScanner::setSelectedFile(const QString& fileName)
   if (fileName.isEmpty()) return;
   QPixmap pix(fileName);
   previewScene->addPixmap(pix);
-  ui.graphicsViewPreview->fitInView(previewScene->sceneRect(), Qt::KeepAspectRatio);
 }

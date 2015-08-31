@@ -17,7 +17,7 @@ public:
 
 protected:
   bool eventFilter(QObject* object, QEvent* event) override;
-  void resizeEvent(QResizeEvent* event) override;
+  void showEvent(QShowEvent * event) override;
 
 public slots:
   void onc_treeViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous);

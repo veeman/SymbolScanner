@@ -68,6 +68,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_WidgetColorSelector.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="QAspectRatioPixmapLabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QAspectRatioPixmapLabel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QAspectRatioPixmapLabel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="WinSymbolScanner.h">
@@ -91,6 +100,9 @@
     <CustomBuild Include="WidgetColorSelector.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="QAspectRatioPixmapLabel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_WinSymbolScanner.h">
@@ -101,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_WidgetColorSelector.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qtcvHelper.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

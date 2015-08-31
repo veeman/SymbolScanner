@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>949</width>
-    <height>562</height>
+    <height>501</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,11 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
-      <widget class="QGraphicsView" name="graphicsViewProcessed"/>
+      <widget class="QAspectRatioPixmapLabel" name="labelImage">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QWidget" name="widget" native="true">
@@ -195,6 +199,11 @@
    <slots>
     <signal>colorChanged(QColor)</signal>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>QAspectRatioPixmapLabel</class>
+   <extends>QLabel</extends>
+   <header>QAspectRatioPixmapLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -1,10 +1,10 @@
-#include "WinSymbolScanner.h"
+#include "WinImageFilterOptions.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    WinSymbolScanner w;
+    WinImageFilterOptions w;
     w.show();
     return a.exec();
 }

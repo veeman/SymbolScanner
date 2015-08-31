@@ -15,10 +15,12 @@ public:
     WinImageFilterOptions(QWidget *parent = 0);
     ~WinImageFilterOptions();
 
+    void refreshPreviewImage(void);
+
 private:
     Ui::WinImageFilterOptions ui;
-    QGraphicsScene *previewScene;
-    cv::Mat imMat;
+    cv::Mat imMatOrignal;
+    cv::Mat imMatPreview;
 
 private slots:
   void on_widgetLowerFilter_colorChanged(QColor color);
