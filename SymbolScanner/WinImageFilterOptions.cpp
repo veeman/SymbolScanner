@@ -9,9 +9,7 @@ WinImageFilterOptions::WinImageFilterOptions(QWidget *parent)
 {
   ui.setupUi(this);
 
-  imMatOrignal = cv::imread("F:\\ScannedNN\\A.png", cv::IMREAD_COLOR);
-  cv::cvtColor(imMatOrignal, imMatPreview, cv::COLOR_BGR2RGB);
-  ui.labelImage->setPixmap(cvMatToQPixmap(imMatPreview));
+  imMatOrignal = cv::imread("file.png", cv::IMREAD_COLOR);
 
   refreshPreviewImage();
 }
@@ -39,7 +37,8 @@ void WinImageFilterOptions::refreshPreviewImage(void)
     cv::inRange(imMatPreview, low, up, imMatPreview);
   } else
   {
-    cv::cvtColor(imMatOrignal, imMatPreview, cv::COLOR_BGR2RGB);
+    imMatOrignal.copyTo(imMatPreview);
+    //cv::cvtColor(imMatOrignal, imMatPreview, cv::COLOR_BGR2RGB);
   }
 
   ui.labelImage->setPixmap(cvMatToQPixmap(imMatPreview));
@@ -50,7 +49,7 @@ void WinImageFilterOptions::on_widgetLowerFilter_colorChanged(QColor color)
   if (ui.buttonGroup->checkedButton() == ui.radioButtonRaster)
     ui.colorLineEditRasterLower->setColor(color);
   else if (ui.buttonGroup->checkedButton() == ui.radioButtonSign)
-      ui.colorLineEditSignsLower->setColor(color);
+    ui.colorLineEditSignsLower->setColor(color);
   refreshPreviewImage();
 }
 
@@ -65,6 +64,10 @@ void WinImageFilterOptions::on_widgetUpperFilter_colorChanged(QColor color)
 
 void WinImageFilterOptions::on_buttonGroup_buttonClicked(QAbstractButton * button)
 {
+  auto enFilter = button != ui.radioButtonOriginal;
+  ui.groupBoxLower->setEnabled(enFilter);
+  ui.groupBoxUpper->setEnabled(enFilter);
+
   if (button == ui.radioButtonRaster)
   {
     ui.widgetLowerFilter->setColor(ui.colorLineEditRasterLower->color());
@@ -73,10 +76,11 @@ void WinImageFilterOptions::on_buttonGroup_buttonClicked(QAbstractButton * butto
   {
     ui.widgetLowerFilter->setColor(ui.colorLineEditSignsLower->color());
     ui.widgetUpperFilter->setColor(ui.colorLineEditSignsUpper->color());
-  }
-  else
+  } else
   {
-
+    QColor c = Qt::white;
+    ui.widgetLowerFilter->setColor(c);
+    ui.widgetUpperFilter->setColor(c);
   }
   refreshPreviewImage();
 }

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>949</width>
+    <width>1036</width>
     <height>501</height>
    </rect>
   </property>
@@ -136,6 +136,9 @@
         </item>
         <item>
          <widget class="QGroupBox" name="groupBoxLower">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -154,6 +157,9 @@
         </item>
         <item>
          <widget class="QGroupBox" name="groupBoxUpper">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
