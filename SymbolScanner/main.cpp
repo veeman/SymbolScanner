@@ -1,10 +1,10 @@
-#include "WinImageFilterOptions.h"
+#include "WinImageSelector.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    WinImageFilterOptions w;
+    WinImageSelector w;
     w.show();
     return a.exec();
 }

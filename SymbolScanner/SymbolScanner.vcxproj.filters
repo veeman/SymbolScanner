@@ -77,6 +77,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_QAspectRatioPixmapLabel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="WinImageSelector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_WinImageSelector.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_WinImageSelector.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="WinSymbolScanner.h">
@@ -103,6 +112,12 @@
     <CustomBuild Include="QAspectRatioPixmapLabel.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="WinImageSelector.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="WinImageSelector.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_WinSymbolScanner.h">
@@ -116,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="qtcvHelper.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_WinImageSelector.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
