@@ -1,18 +1,11 @@
 #include "WinImageSelector.h"
-#include <QGraphicsScene>
 #include <QFileSystemModel>
 #include <QDir>
-#include <QShowEvent>
 
 WinImageSelector::WinImageSelector(QWidget *parent)
-  : QWidget(parent), dirModel(nullptr), fileModel(nullptr), previewScene(nullptr)
+  : QWidget(parent), dirModel(nullptr), fileModel(nullptr)
 {
   ui.setupUi(this);
-
-  // setup image preview
-  previewScene = new QGraphicsScene(ui.graphicsViewPreview);
-  ui.graphicsViewPreview->setScene(previewScene);
-  ui.graphicsViewPreview->installEventFilter(this);
 
   // setup directory listener
   dirModel = new QFileSystemModel(this);
@@ -44,24 +37,6 @@ WinImageSelector::~WinImageSelector()
 {
 }
 
-
-bool WinImageSelector::eventFilter(QObject* object, QEvent* event)
-{
-  // fit preview image in widget on resize event
-  if (object == ui.graphicsViewPreview && (event->type() == QEvent::Resize || event->type() == QEvent::Show))
-  {
-    ui.graphicsViewPreview->fitInView(previewScene->sceneRect(), Qt::KeepAspectRatio);
-    return true;
-  }
-
-  return false;
-}
-
-void WinImageSelector::showEvent(QShowEvent * event)
-{
-  eventFilter(ui.graphicsViewPreview, event);
-}
-
 void WinImageSelector::onc_treeViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
   // selected directory changed, update file listener
@@ -80,12 +55,9 @@ void WinImageSelector::onc_listViewSelectionModel_currentChanged(const QModelInd
 
 void WinImageSelector::setSelectedFile(const QString& fileName)
 {
-  setWindowTitle(fileName);
+  if (fileName.isEmpty()) 
+    return;
 
-  if (!previewScene) return;
-  previewScene->clear();
-
-  if (fileName.isEmpty()) return;
   QPixmap pix(fileName);
-  previewScene->addPixmap(pix);
+  ui.labelPreview->setPixmap(pix);
 }

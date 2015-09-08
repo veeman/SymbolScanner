@@ -5,7 +5,6 @@
 #include "ui_WinImageSelector.h"
 
 class QFileSystemModel;
-class QGraphicsScene;
 
 class WinImageSelector : public QWidget
 {
@@ -14,10 +13,6 @@ class WinImageSelector : public QWidget
 public:
     WinImageSelector(QWidget *parent = 0);
     ~WinImageSelector();
-
-protected:
-  bool eventFilter(QObject* object, QEvent* event) override;
-  void showEvent(QShowEvent * event) override;
 
   public slots:
   void onc_treeViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous);
@@ -29,7 +24,6 @@ private:
     Ui::WinImageSelector ui;
     QFileSystemModel *dirModel;
     QFileSystemModel *fileModel;
-    QGraphicsScene *previewScene;
 };
 
 #endif // WINIMAGESELECTOR_H
