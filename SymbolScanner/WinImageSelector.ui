@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>WinImageSelector</string>
   </property>
+  <property name="description" stdset="0">
+   <string>This wizard will help you to extract all icons from your image files.
+Therefore select the folder with the images which you want to process.
+Optimal are images in A4 format with a resolution of 150 dpi.</string>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QSplitter" name="splitter">

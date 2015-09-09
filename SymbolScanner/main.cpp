@@ -1,10 +1,10 @@
-#include "WinImageSelector.h"
+#include "WinSymbolScanner.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    WinImageSelector w;
-    w.show();
-    return a.exec();
+    QApplication application(argc, argv);
+    WinSymbolScanner mainWindow;
+    mainWindow.show();
+    return application.exec();
 }

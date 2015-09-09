@@ -50,15 +50,6 @@
     <ClCompile Include="GeneratedFiles\qrc_SymbolScanner.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="WinImageFilterOptions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_WinImageFilterOptions.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_WinImageFilterOptions.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="WidgetColorSelector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -86,6 +77,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_WinImageSelector.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_WinImageFilterGrid.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_WinImageFilterGrid.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="WinImageFilterGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="WinSymbolScanner.h">
@@ -96,12 +96,6 @@
     </CustomBuild>
     <CustomBuild Include="SymbolScanner.qrc">
       <Filter>Resource Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="WinImageFilterOptions.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="WinImageFilterOptions.ui">
-      <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="WidgetColorSelector.h">
       <Filter>Header Files</Filter>
@@ -118,12 +112,15 @@
     <CustomBuild Include="WinImageSelector.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="WinImageFilterGrid.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="WinImageFilterGrid.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_WinSymbolScanner.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_WinImageFilterOptions.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_WidgetColorSelector.h">
@@ -133,6 +130,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_WinImageSelector.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_WinImageFilterGrid.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

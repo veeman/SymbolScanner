@@ -26,7 +26,7 @@ private slots:
   void setRGB();
 
 private:
-  Ui::WidgetColorSelector ui;
+  Ui::WidgetColorSelector _ui;
 };
 
 #endif // WIDGETCOLORSELECTOR_H

@@ -12,8 +12,11 @@ public:
   WinSymbolScanner(QWidget *parent = 0);
   ~WinSymbolScanner();
 
+  public slots:
+  void on_stackedWidget_currentChanged(int index);
+
 private:
-  Ui::WinSymbolScannerClass ui;
+  Ui::WinSymbolScannerClass _ui;
 };
 
 #endif // WINSYMBOLSCANNER_H

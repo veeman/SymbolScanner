@@ -2,27 +2,27 @@
 #define WINIMAGEFILTEROPTIONS_H
 
 #include <QWidget>
-#include "ui_WinImageFilterOptions.h"
+#include "ui_WinImageFilterGrid.h"
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-class WinImageFilterOptions : public QWidget
+class WinImageFilterGrid : public QWidget
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    WinImageFilterOptions(QWidget *parent = 0);
-    ~WinImageFilterOptions();
+  WinImageFilterGrid(QWidget *parent = 0);
+  ~WinImageFilterGrid();
 
-    void refreshPreviewImage(void);
+  void refreshPreviewImage(void);
 
 private:
-    Ui::WinImageFilterOptions ui;
-    cv::Mat imMatOrignal;
-    cv::Mat imMatPreview;
+  Ui::WinImageFilterGrid _ui;
+  cv::Mat imMatOrignal;
+  cv::Mat imMatPreview;
 
-private slots:
+  private slots:
   void on_widgetLowerFilter_colorChanged(QColor color);
   void on_widgetUpperFilter_colorChanged(QColor color);
   void on_buttonGroup_buttonClicked(QAbstractButton * button);
