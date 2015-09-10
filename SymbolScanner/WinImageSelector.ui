@@ -29,7 +29,15 @@ Optimal are images in A4 format with a resolution of 150 dpi.</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QListView" name="listViewFiles"/>
+     <widget class="QListView" name="listViewFiles">
+      <property name="defaultFilter" stdset="0">
+       <stringlist>
+        <string>*.jpg</string>
+        <string>*.png</string>
+        <string>*.bmp</string>
+       </stringlist>
+      </property>
+     </widget>
      <widget class="QAspectRatioPixmapLabel" name="labelPreview">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">

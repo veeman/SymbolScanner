@@ -1,6 +1,11 @@
 #include "WinImageSelector.h"
+#include <QThreadPool>
 #include <QFileSystemModel>
 #include <QDir>
+
+
+
+// **********************************************************************************
 
 WinImageSelector::WinImageSelector(QWidget *parent)
   : QWidget(parent), _dirModel(nullptr), _fileModel(nullptr), _currentDirectory()
@@ -41,10 +46,10 @@ void WinImageSelector::onc_treeViewSelectionModel_currentChanged(const QModelInd
   // selected directory changed, update file listener
   _currentDirectory = _dirModel->filePath(current);
   _ui.listViewFiles->setRootIndex(_fileModel->setRootPath(_currentDirectory));
-  setSelectedFile();
+  recacheImages(_currentDirectory);
 
   _fileModel->setNameFilters(QStringList());
-  _fileModel->setNameFilters(QStringList() << "*.bmp" << "*.jpg" << "*.png");
+  _fileModel->setNameFilters(_ui.listViewFiles->property("defaultFilter").toStringList());
 }
 
 void WinImageSelector::onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
@@ -55,9 +60,38 @@ void WinImageSelector::onc_listViewSelectionModel_currentChanged(const QModelInd
 
 void WinImageSelector::setSelectedFile(const QString& fileName)
 {
-  if (fileName.isEmpty())
-    return;
+  _currentFile = fileName;
 
-  QPixmap pix(fileName);
-  _ui.labelPreview->setPixmap(pix);
+  if (fileName.isEmpty())
+  {
+    _ui.labelPreview->setPixmap(QPixmap());
+    return;
+  }
+
+  _ui.labelPreview->setPixmap(_imageCache.value(fileName, QPixmap()));
+}
+
+void WinImageSelector::fileLoaded(const QString& fileName, const QImage& image)
+{
+  _imageCache.insert(fileName, QPixmap::fromImage(image));
+
+  if (_currentFile == fileName)
+    setSelectedFile(fileName);
+}
+
+void WinImageSelector::recacheImages(const QString& directory)
+{
+  _imageCache.clear();
+
+  auto fileList = QDir(directory).entryInfoList(_ui.listViewFiles->property("defaultFilter").toStringList(), 
+                                                QDir::Files | QDir::NoDotAndDotDot);
+
+  for (auto file : fileList)
+  {
+    auto taskLoad = new QImageLoader(file.filePath());
+    connect(taskLoad, SIGNAL(finished(const QString&, const QImage&)), this, SLOT(fileLoaded(const QString&, const QImage&)));
+    QThreadPool::globalInstance()->start(taskLoad);
+  }
+
+  setSelectedFile();
 }
