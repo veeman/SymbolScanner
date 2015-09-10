@@ -19,13 +19,8 @@ public:
 
 private:
   Ui::WinImageFilterGrid _ui;
-  cv::Mat imMatOrignal;
-  cv::Mat imMatPreview;
 
-  private slots:
-  void on_widgetLowerFilter_colorChanged(QColor color);
-  void on_widgetUpperFilter_colorChanged(QColor color);
-  void on_buttonGroup_buttonClicked(QAbstractButton * button);
+private slots:
 };
 
 #endif // WINIMAGEFILTEROPTIONS_H

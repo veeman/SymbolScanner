@@ -14,6 +14,10 @@ public:
 
   public slots:
   void on_stackedWidget_currentChanged(int index);
+  void on_pushButtonNext_clicked(void);
+  void on_pushButtonBack_clicked(void);
+  void on_pushButtonRestart_clicked(void);
+  void on_pushButtonProcess_clicked(void);
 
 private:
   Ui::WinSymbolScannerClass _ui;

@@ -8,10 +8,6 @@ WinImageFilterGrid::WinImageFilterGrid(QWidget *parent)
   : QWidget(parent)
 {
   _ui.setupUi(this);
-
-  imMatOrignal = cv::imread("file.png", cv::IMREAD_COLOR);
-
-  refreshPreviewImage();
 }
 
 WinImageFilterGrid::~WinImageFilterGrid()
@@ -19,6 +15,7 @@ WinImageFilterGrid::~WinImageFilterGrid()
 
 }
 
+/*
 void WinImageFilterGrid::refreshPreviewImage(void)
 {
   if (_ui.buttonGroup->checkedButton() == _ui.radioButtonRaster)
@@ -84,3 +81,5 @@ void WinImageFilterGrid::on_buttonGroup_buttonClicked(QAbstractButton * button)
   }
   refreshPreviewImage();
 }
+
+*/

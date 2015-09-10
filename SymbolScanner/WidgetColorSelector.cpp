@@ -13,12 +13,12 @@ WidgetColorSelector::~WidgetColorSelector()
 
 QColor WidgetColorSelector::color(void) const
 {
-  return _ui.wheel->color();
+  return _color;
 }
 
 void WidgetColorSelector::setColor(const QColor &c)
 {
-  _ui.wheel->setColor(c);
+  _color = c;
 }
 
 void WidgetColorSelector::updateWidgets()
@@ -45,20 +45,20 @@ void WidgetColorSelector::updateWidgets()
   _ui.slideBlue->setFirstColor(QColor(col.red(), col.green(), 0));
   _ui.slideBlue->setLastColor(QColor(col.red(), col.green(), 255));
 
-  _ui.slideHue->setValue(qRound(_ui.wheel->hue()*360.0));
-  _ui.slideHue->setColorSaturation(_ui.wheel->saturation());
-  _ui.slideHue->setColorValue(_ui.wheel->value());
+  _ui.slideHue->setValue(col.hueF() * 360.0);
+  _ui.slideHue->setColorSaturation(col.saturationF());
+  _ui.slideHue->setColorValue(col.valueF());
   _ui.spinHue->setValue(_ui.slideHue->value());
 
-  _ui.slideSaturation->setValue(qRound(_ui.wheel->saturation()*255.0));
+  _ui.slideSaturation->setValue(qRound(col.saturationF()*255.0));
   _ui.spinSaturation->setValue(_ui.slideSaturation->value());
-  _ui.slideSaturation->setFirstColor(QColor::fromHsvF(_ui.wheel->hue(), 0, _ui.wheel->value()));
-  _ui.slideSaturation->setLastColor(QColor::fromHsvF(_ui.wheel->hue(), 1, _ui.wheel->value()));
+  _ui.slideSaturation->setFirstColor(QColor::fromHsvF(col.hueF(), 0, col.valueF()));
+  _ui.slideSaturation->setLastColor(QColor::fromHsvF(col.hueF(), 1, col.valueF()));
 
-  _ui.slideValue->setValue(qRound(_ui.wheel->value()*255.0));
+  _ui.slideValue->setValue(qRound(col.valueF()*255.0));
   _ui.spinValue->setValue(_ui.slideValue->value());
-  _ui.slideValue->setFirstColor(QColor::fromHsvF(_ui.wheel->hue(), _ui.wheel->saturation(), 0));
-  _ui.slideValue->setLastColor(QColor::fromHsvF(_ui.wheel->hue(), _ui.wheel->saturation(), 1));
+  _ui.slideValue->setFirstColor(QColor::fromHsvF(col.hueF(), col.saturationF(), 0));
+  _ui.slideValue->setLastColor(QColor::fromHsvF(col.hueF(), col.saturationF(), 1));
 
   if (!_ui.editHex->isModified())
     _ui.editHex->setColor(col);
@@ -74,11 +74,9 @@ void WidgetColorSelector::setHSV()
 {
   if (!signalsBlocked())
   {
-    _ui.wheel->setColor(QColor::fromHsv(
-      _ui.slideHue->value(),
-      _ui.slideSaturation->value(),
-      _ui.slideValue->value()
-    ));
+    _color = QColor::fromHsv(_ui.slideHue->value(),
+                             _ui.slideSaturation->value(),
+                             _ui.slideValue->value());
     updateWidgets();
   }
 }
@@ -87,14 +85,18 @@ void WidgetColorSelector::setRGB()
 {
   if (!signalsBlocked())
   {
-    QColor col(
-      _ui.slideRed->value(),
-      _ui.slideGreen->value(),
-      _ui.slideBlue->value()
-      );
-    if (col.saturation() == 0)
-      col = QColor::fromHsv(_ui.slideHue->value(), 0, col.value());
-    _ui.wheel->setColor(col);
+    _color = QColor(_ui.slideRed->value(),
+                    _ui.slideGreen->value(),
+                    _ui.slideBlue->value());
+    updateWidgets();
+  }
+}
+
+void WidgetColorSelector::setTextColor(QColor color)
+{
+  if (!signalsBlocked())
+  {
+    _color = color;
     updateWidgets();
   }
 }

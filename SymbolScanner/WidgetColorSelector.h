@@ -24,9 +24,11 @@ private slots:
   void updateWidgets();
   void setHSV();
   void setRGB();
+  void setTextColor(QColor color);
 
 private:
   Ui::WidgetColorSelector _ui;
+  QColor _color;
 };
 
 #endif // WIDGETCOLORSELECTOR_H

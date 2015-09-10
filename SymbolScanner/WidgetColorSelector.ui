@@ -6,213 +6,195 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>447</width>
-    <height>228</height>
+    <width>313</width>
+    <height>226</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>WidgetColorSelector</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="color_widgets::ColorWheel" name="wheel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-      </layout>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <widget class="color_widgets::GradientSlider" name="slideSaturation">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
      </item>
-     <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="1">
-        <widget class="color_widgets::GradientSlider" name="slideSaturation">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="labelBlue">
-         <property name="text">
-          <string>Blue</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="color_widgets::GradientSlider" name="slideRed">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="color_widgets::GradientSlider" name="slideGreen">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="labelValue">
-         <property name="text">
-          <string>Value</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="labelGreen">
-         <property name="text">
-          <string>Green</string>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="labelHex">
-         <property name="text">
-          <string>Hex</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="color_widgets::GradientSlider" name="slideValue">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="labelRed">
-         <property name="text">
-          <string>Red</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="color_widgets::GradientSlider" name="slideBlue">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QSpinBox" name="spinHue">
-         <property name="wrapping">
-          <bool>true</bool>
-         </property>
-         <property name="maximum">
-          <number>359</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QSpinBox" name="spinSaturation">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QSpinBox" name="spinValue">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="QSpinBox" name="spinRed">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="2">
-        <widget class="QSpinBox" name="spinGreen">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="2">
-        <widget class="QSpinBox" name="spinBlue">
-         <property name="maximum">
-          <number>255</number>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="3">
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="color_widgets::HueSlider" name="slideHue">
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>359</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelSaturation">
-         <property name="text">
-          <string>Saturation</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="labelHue">
-         <property name="text">
-          <string>Hue</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0" colspan="3">
-        <widget class="Line" name="lineHex">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="1" colspan="2">
-        <widget class="color_widgets::ColorLineEdit" name="editHex">
-         <property name="font">
-          <font>
-           <family>Monospace</family>
-          </font>
-         </property>
-         <property name="showAlpha">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
+     <item row="6" column="0">
+      <widget class="QLabel" name="labelBlue">
+       <property name="text">
+        <string>Blue</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="color_widgets::GradientSlider" name="slideRed">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="color_widgets::GradientSlider" name="slideGreen">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelValue">
+       <property name="text">
+        <string>Value</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="labelGreen">
+       <property name="text">
+        <string>Green</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="labelHex">
+       <property name="text">
+        <string>Hex</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="color_widgets::GradientSlider" name="slideValue">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="labelRed">
+       <property name="text">
+        <string>Red</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="color_widgets::GradientSlider" name="slideBlue">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QSpinBox" name="spinHue">
+       <property name="wrapping">
+        <bool>true</bool>
+       </property>
+       <property name="maximum">
+        <number>359</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QSpinBox" name="spinSaturation">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QSpinBox" name="spinValue">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QSpinBox" name="spinRed">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QSpinBox" name="spinGreen">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="2">
+      <widget class="QSpinBox" name="spinBlue">
+       <property name="maximum">
+        <number>255</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="3">
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="color_widgets::HueSlider" name="slideHue">
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>359</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelSaturation">
+       <property name="text">
+        <string>Saturation</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelHue">
+       <property name="text">
+        <string>Hue</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="3">
+      <widget class="Line" name="lineHex">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1" colspan="2">
+      <widget class="color_widgets::ColorLineEdit" name="editHex">
+       <property name="font">
+        <font>
+         <family>Monospace</family>
+        </font>
+       </property>
+       <property name="showAlpha">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -220,16 +202,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>color_widgets::ColorWheel</class>
-   <extends>QWidget</extends>
-   <header>color_wheel.hpp</header>
-   <container>1</container>
-   <slots>
-    <signal>colorSelected(QColor)</signal>
-    <slot>setColor(QColor)</slot>
-   </slots>
-  </customwidget>
   <customwidget>
    <class>color_widgets::GradientSlider</class>
    <extends>QSlider</extends>
@@ -250,162 +222,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>spinHue</sender>
+   <sender>slideHue</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>slideHue</receiver>
+   <receiver>spinHue</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>406</x>
+     <x>218</x>
+     <y>26</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
      <y>23</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>375</x>
-     <y>22</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinSaturation</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>slideSaturation</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>399</x>
-     <y>53</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>370</x>
-     <y>53</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinValue</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>slideValue</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>410</x>
-     <y>79</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>365</x>
-     <y>78</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinRed</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>slideRed</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>406</x>
-     <y>115</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>375</x>
-     <y>114</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinGreen</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>slideGreen</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>404</x>
-     <y>141</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>372</x>
-     <y>141</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBlue</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>slideBlue</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>400</x>
-     <y>173</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>367</x>
-     <y>173</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>slideBlue</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinBlue</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>314</x>
-     <y>166</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>407</x>
-     <y>164</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>slideGreen</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinGreen</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>354</x>
-     <y>147</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>413</x>
-     <y>145</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>slideRed</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinRed</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>371</x>
-     <y>116</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>402</x>
-     <y>116</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>slideValue</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinValue</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>364</x>
-     <y>76</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>402</x>
-     <y>77</y>
     </hint>
    </hints>
   </connection>
@@ -416,28 +244,172 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>372</x>
-     <y>54</y>
+     <x>234</x>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
-     <x>405</x>
+     <x>274</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slideValue</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinValue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>243</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>270</x>
+     <y>77</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slideRed</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinRed</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>245</x>
+     <y>117</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>270</x>
+     <y>117</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slideGreen</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinGreen</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>240</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>289</x>
+     <y>141</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slideBlue</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBlue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>242</x>
+     <y>166</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>277</x>
+     <y>170</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinHue</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slideHue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>275</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>248</x>
+     <y>25</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinSaturation</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slideSaturation</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>275</x>
+     <y>42</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
      <y>52</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>slideHue</sender>
+   <sender>spinValue</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>spinHue</receiver>
+   <receiver>slideValue</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>368</x>
-     <y>25</y>
+     <x>274</x>
+     <y>72</y>
     </hint>
     <hint type="destinationlabel">
-     <x>402</x>
-     <y>23</y>
+     <x>247</x>
+     <y>76</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinRed</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slideRed</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>272</x>
+     <y>117</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>246</x>
+     <y>115</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinGreen</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slideGreen</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>139</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>240</x>
+     <y>138</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBlue</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slideBlue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>281</x>
+     <y>171</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>170</y>
     </hint>
    </hints>
   </connection>
@@ -448,12 +420,12 @@
    <slot>setHSV()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>286</x>
-     <y>17</y>
+     <x>108</x>
+     <y>26</y>
     </hint>
     <hint type="destinationlabel">
-     <x>297</x>
-     <y>4</y>
+     <x>96</x>
+     <y>3</y>
     </hint>
    </hints>
   </connection>
@@ -464,12 +436,12 @@
    <slot>setHSV()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>311</x>
-     <y>51</y>
+     <x>131</x>
+     <y>47</y>
     </hint>
     <hint type="destinationlabel">
-     <x>277</x>
-     <y>-1</y>
+     <x>132</x>
+     <y>-9</y>
     </hint>
    </hints>
   </connection>
@@ -480,12 +452,12 @@
    <slot>setHSV()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>303</x>
-     <y>78</y>
+     <x>185</x>
+     <y>75</y>
     </hint>
     <hint type="destinationlabel">
-     <x>367</x>
-     <y>2</y>
+     <x>192</x>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -496,12 +468,12 @@
    <slot>setRGB()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>304</x>
-     <y>118</y>
+     <x>90</x>
+     <y>119</y>
     </hint>
     <hint type="destinationlabel">
-     <x>454</x>
-     <y>128</y>
+     <x>116</x>
+     <y>1</y>
     </hint>
    </hints>
   </connection>
@@ -512,12 +484,12 @@
    <slot>setRGB()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>345</x>
-     <y>140</y>
+     <x>142</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
-     <x>446</x>
-     <y>193</y>
+     <x>27</x>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -528,44 +500,28 @@
    <slot>setRGB()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>367</x>
-     <y>176</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>444</x>
-     <y>224</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>wheel</sender>
-   <signal>colorChanged(QColor)</signal>
-   <receiver>WidgetColorSelector</receiver>
-   <slot>updateWidgets()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>82</x>
-     <y>96</y>
-    </hint>
-    <hint type="destinationlabel">
      <x>102</x>
-     <y>223</y>
+     <y>171</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>40</x>
+     <y>6</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>editHex</sender>
-   <signal>colorChanged(QColor)</signal>
-   <receiver>wheel</receiver>
-   <slot>setColor(QColor)</slot>
+   <signal>colorEdited(QColor)</signal>
+   <receiver>WidgetColorSelector</receiver>
+   <slot>setTextColor(QColor)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>347</x>
-     <y>208</y>
+     <x>206</x>
+     <y>204</y>
     </hint>
     <hint type="destinationlabel">
-     <x>166</x>
-     <y>203</y>
+     <x>55</x>
+     <y>222</y>
     </hint>
    </hints>
   </connection>
@@ -574,5 +530,6 @@
   <slot>setHSV()</slot>
   <slot>setRGB()</slot>
   <slot>updateWidgets()</slot>
+  <slot>setTextColor(QColor)</slot>
  </slots>
 </ui>
