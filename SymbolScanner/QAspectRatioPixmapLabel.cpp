@@ -10,7 +10,7 @@ QAspectRatioPixmapLabel::QAspectRatioPixmapLabel(QWidget *parent) :
 void QAspectRatioPixmapLabel::setPixmap(const QPixmap & p)
 {
   pix = p;
-  QLabel::setPixmap(pix.scaled(this->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+  resizeEvent(0);
 }
 
 int QAspectRatioPixmapLabel::heightForWidth(int width) const
