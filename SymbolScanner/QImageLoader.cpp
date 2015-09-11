@@ -14,4 +14,6 @@ void QImageLoader::run()
 
   if (image.load(_fileName))
     emit finished(_fileName, image);
+  else
+    emit error(_fileName);
 }

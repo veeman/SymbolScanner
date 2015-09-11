@@ -24,6 +24,9 @@ public:
   void onImageAvailable(const QString& fileName);
   void setSelectedFile(const QString& fileName = QString());
 
+signals:
+  void pathChanged(const QString& directory);
+
 private:
   Ui::WinImageSelector _ui;
   QFileSystemModel *_dirModel;

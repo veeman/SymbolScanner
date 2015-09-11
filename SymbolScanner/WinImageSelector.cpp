@@ -22,7 +22,6 @@ WinImageSelector::WinImageSelector(QWidget *parent)
 
   // setup file listener
   _fileModel = new QFileSystemModel(this);
-  _dirModel->setRootPath(_dirModel->myComputer().toString());
   _fileModel->setFilter(QDir::Files);
   _fileModel->setNameFilterDisables(false);
   _fileModel->setReadOnly(false);
@@ -42,6 +41,8 @@ void WinImageSelector::onc_treeViewSelectionModel_currentChanged(const QModelInd
   _currentDirectory = _dirModel->filePath(current);
   _ui.listViewFiles->setRootIndex(_fileModel->setRootPath(_currentDirectory));
   setSelectedFile();
+
+  emit pathChanged(_currentDirectory);
 
   if (!parentMainWindow())
     return;

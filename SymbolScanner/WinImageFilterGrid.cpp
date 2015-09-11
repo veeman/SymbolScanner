@@ -1,18 +1,41 @@
 #include "WinImageFilterGrid.h"
+#include "WinSymbolScanner.h"
 #include "qtcvHelper.h"
-#include <QShowEvent>
-#include <QPixmap>
-#include <QDebug>
+#include <QListWidget>
+#include <QFileSystemModel>
 
 WinImageFilterGrid::WinImageFilterGrid(QWidget *parent)
-  : QWidget(parent)
+  : QMainWindowChild(parent)
 {
   _ui.setupUi(this);
+
+  // setup file listener
+  _fileModel = new QFileSystemModel(this);
+  _fileModel->setFilter(QDir::Files);
+  _fileModel->setNameFilterDisables(false);
+  _fileModel->setReadOnly(false);
+
+  _ui.listViewFiles->setModel(_fileModel);
+
+  connect(_ui.listViewFiles->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)),
+          this, SLOT(onc_listViewSelectionModel_currentChanged(const QModelIndex&, const QModelIndex&)));
 }
 
 WinImageFilterGrid::~WinImageFilterGrid()
 {
 
+}
+
+void WinImageFilterGrid::setCurrentFolder(const QString& directory)
+{
+  _fileModel->setNameFilters(parentMainWindow()->property("defaultFileFilter").toStringList());
+  _ui.listViewFiles->clearSelection();
+  _ui.listViewFiles->setRootIndex(_fileModel->setRootPath(directory));
+}
+
+void WinImageFilterGrid::onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
+{
+  auto fileName = _fileModel->filePath(current);
 }
 
 /*

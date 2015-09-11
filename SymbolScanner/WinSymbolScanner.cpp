@@ -10,10 +10,17 @@ WinSymbolScanner::WinSymbolScanner(QWidget *parent)
 {
   _ui.setupUi(this);
 
+  // connect signals with pages
   qobject_cast<QMainWindowChild*>(_ui.pageSelect)->setParentMainWindow(this);
+  qobject_cast<QMainWindowChild*>(_ui.pageFilterGrid)->setParentMainWindow(this);
+
   QObject::connect(this, SIGNAL(imageCached(const QString&)),
                    _ui.pageSelect, SLOT(onImageAvailable(const QString&)));
+  
+  QObject::connect(_ui.pageSelect, SIGNAL(pathChanged(const QString&)),
+                   _ui.pageFilterGrid, SLOT(setCurrentFolder(const QString&)));
 
+  // center widget and trigger current selected page as default
   setGeometry(QStyle::alignedRect(Qt::LeftToRight, 
                                   Qt::AlignCenter, size(), 
                                   qApp->desktop()->availableGeometry()));
@@ -63,7 +70,7 @@ void WinSymbolScanner::on_pushButtonProcess_clicked(void)
 
 void WinSymbolScanner::recacheImages(const QString& directory)
 {
-  //TODO: remove absolute images
+  //TODO: remove obsolute images
   //_imageCache.clear();
 
   auto fileList = QDir(directory).entryInfoList(property("defaultFileFilter").toStringList(),

@@ -1,13 +1,15 @@
 #ifndef WINIMAGEFILTEROPTIONS_H
 #define WINIMAGEFILTEROPTIONS_H
 
-#include <QWidget>
+#include "QMainWindowChild.h"
 #include "ui_WinImageFilterGrid.h"
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-class WinImageFilterGrid : public QWidget
+class QFileSystemModel;
+
+class WinImageFilterGrid : public QMainWindowChild
 {
   Q_OBJECT
 
@@ -17,10 +19,13 @@ public:
 
   void refreshPreviewImage(void);
 
+  public slots:
+  void onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous);
+  void setCurrentFolder(const QString& directory);
+
 private:
   Ui::WinImageFilterGrid _ui;
-
-private slots:
+  QFileSystemModel *_fileModel;
 };
 
 #endif // WINIMAGEFILTEROPTIONS_H

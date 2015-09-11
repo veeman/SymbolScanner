@@ -18,6 +18,7 @@ public:
 
 signals:
   void finished(const QString& fileName, const QImage& image);
+  void error(const QString& fileName);
 
 private:
   QString _fileName;
