@@ -36,6 +36,15 @@ void WinImageFilterGrid::setCurrentFolder(const QString& directory)
 void WinImageFilterGrid::onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
   auto fileName = _fileModel->filePath(current);
+
+  QPixmap orgPix = parentMainWindow()->imageCache().value(fileName);
+  cv::Mat org = qPixmapToCvMat(orgPix, false);
+
+  //cv::Mat greyMat;
+  //cv::cvtColor(org, greyMat, CV_BGR2GRAY);
+
+  QPixmap editedPix = cvMatToQPixmap(greyMat);
+  _ui.labelPreview->setPixmap(editedPix);
 }
 
 /*
