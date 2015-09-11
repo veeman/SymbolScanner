@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>945</width>
-    <height>494</height>
+    <width>992</width>
+    <height>529</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,15 +17,101 @@
    <string>In this step move the slider of the lower and upper color border until you see only the grid of your symbol image.
 Make sure the lines forms all cross points of the grid.</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_3">
+  <layout class="QHBoxLayout" name="horizontalLayout_4">
    <item>
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QListView" name="listViewFiles"/>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QListView" name="listViewFiles">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBoxOptions">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>Options</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QCheckBox" name="checkBoxAutoRotate">
+            <property name="text">
+             <string>Try auto rotate</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButtonImageOriginal">
+            <property name="text">
+             <string>Original image</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroupPreviewSelection</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButtonImageMask">
+            <property name="text">
+             <string>Grid image mask</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroupPreviewSelection</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButtonImageGrid">
+            <property name="text">
+             <string>Grid image</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroupPreviewSelection</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="widgetBorders" native="true">
+      <property name="maximumSize">
+       <size>
+        <width>400</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="QGroupBox" name="groupBoxUpper">
          <property name="minimumSize">
@@ -77,16 +163,37 @@ Make sure the lines forms all cross points of the grid.</string>
        </item>
       </layout>
      </widget>
-     <widget class="QAspectRatioPixmapLabel" name="labelPreview">
+     <widget class="QGroupBox" name="groupBoxPreview">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-        <horstretch>2</horstretch>
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>1</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="text">
-       <string>TextLabel</string>
+      <property name="title">
+       <string/>
       </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QAspectRatioPixmapLabel" name="labelPreview">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>No image selected</string>
+         </property>
+         <property name="loadingText" stdset="0">
+          <string>Process image ...</string>
+         </property>
+         <property name="defaultText" stdset="0">
+          <string>No image selected</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>
@@ -108,4 +215,7 @@ Make sure the lines forms all cross points of the grid.</string>
  </customwidgets>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroupPreviewSelection"/>
+ </buttongroups>
 </ui>

@@ -3,10 +3,6 @@
 #include <QFileSystemModel>
 #include <QDir>
 
-
-
-// **********************************************************************************
-
 WinImageSelector::WinImageSelector(QWidget *parent)
   : QWidget(parent), _dirModel(nullptr), _fileModel(nullptr), _currentDirectory()
 {
@@ -47,6 +43,7 @@ void WinImageSelector::onc_treeViewSelectionModel_currentChanged(const QModelInd
   _currentDirectory = _dirModel->filePath(current);
   _ui.listViewFiles->setRootIndex(_fileModel->setRootPath(_currentDirectory));
   recacheImages(_currentDirectory);
+  setSelectedFile();
 
   _fileModel->setNameFilters(QStringList());
   _fileModel->setNameFilters(_ui.listViewFiles->property("defaultFilter").toStringList());
@@ -64,11 +61,17 @@ void WinImageSelector::setSelectedFile(const QString& fileName)
 
   if (fileName.isEmpty())
   {
-    _ui.labelPreview->setPixmap(QPixmap());
+    _ui.listViewFiles->clearSelection();
+    _ui.labelPreview->setText(_ui.labelPreview->property("defaultText").toString());
     return;
   }
 
-  _ui.labelPreview->setPixmap(_imageCache.value(fileName, QPixmap()));
+  auto pix = _imageCache.value(fileName, QPixmap());
+
+  if (pix.isNull())
+    _ui.labelPreview->setText(_ui.labelPreview->property("loadingText").toString());
+  else
+    _ui.labelPreview->setPixmap(pix);
 }
 
 void WinImageSelector::fileLoaded(const QString& fileName, const QImage& image)
