@@ -1,15 +1,13 @@
 #ifndef WINIMAGESELECTOR_H
 #define WINIMAGESELECTOR_H
 
-#include <QWidget>
-#include <QRunnable>
+#include "QMainWindowChild.h"
 #include "ui_WinImageSelector.h"
 
 class QFileSystemModel;
-class QDateTime;
-class QPixmap;
+class WinSymbolScanner;
 
-class WinImageSelector : public QWidget
+class WinImageSelector : public QMainWindowChild
 {
   Q_OBJECT
 
@@ -22,10 +20,9 @@ public:
   public slots:
   void onc_treeViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous);
   void onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous);
-
+  
+  void onImageAvailable(const QString& fileName);
   void setSelectedFile(const QString& fileName = QString());
-  void fileLoaded(const QString& fileName, const QImage& image);
-  void recacheImages(const QString& directory);
 
 private:
   Ui::WinImageSelector _ui;
@@ -33,7 +30,6 @@ private:
   QFileSystemModel *_fileModel;
   QString _currentDirectory;
   QString _currentFile;
-  QHash<QString, QPixmap> _imageCache;
 };
 
 inline const QString& WinImageSelector::currentDirectory(void) const
@@ -41,24 +37,4 @@ inline const QString& WinImageSelector::currentDirectory(void) const
   return _currentDirectory;
 }
 
-class QImageLoader : public QObject, public QRunnable
-{
-  Q_OBJECT
-
-public:
-  QImageLoader(const QString &fileName) : QObject(),  QRunnable(), _fileName(fileName)
-  {}
-
-  void run()
-  {
-    QImage image(_fileName);
-    emit finished(_fileName, image);
-  }
-
-signals:
-  void finished(const QString& fileName, const QImage& image);
-
-private:
-  QString _fileName;
-};
 #endif // WINIMAGESELECTOR_H

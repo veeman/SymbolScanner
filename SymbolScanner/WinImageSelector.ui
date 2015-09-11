@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>983</width>
-    <height>546</height>
+    <width>660</width>
+    <height>311</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <property name="description" stdset="0">
    <string>This wizard will help you to extract all icons from your image files.
 Therefore select the folder with the images which you want to process.
-Optimal are images in A4 format with a resolution of 150 dpi.
+Optimal are images in ISO A4 format with a resolution of 150 dpi.
 If you are done press next.</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -33,15 +33,7 @@ If you are done press next.</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QListView" name="listViewFiles">
-      <property name="defaultFilter" stdset="0">
-       <stringlist>
-        <string>*.jpg</string>
-        <string>*.png</string>
-        <string>*.bmp</string>
-       </stringlist>
-      </property>
-     </widget>
+     <widget class="QListView" name="listViewFiles"/>
      <widget class="QGroupBox" name="groupBoxPreview">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">

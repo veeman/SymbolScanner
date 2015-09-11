@@ -6,12 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>964</width>
-    <height>610</height>
+    <width>942</width>
+    <height>626</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>WinSymbolScanner</string>
+  </property>
+  <property name="defaultFileFilter" stdset="0">
+   <stringlist>
+    <string>*.png</string>
+    <string>*.jpg</string>
+    <string>*.bmp</string>
+   </stringlist>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -591,7 +598,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>964</width>
+     <width>942</width>
      <height>21</height>
     </rect>
    </property>
@@ -617,4 +624,7 @@
   <include location="SymbolScanner.qrc"/>
  </resources>
  <connections/>
+ <slots>
+  <signal>imageCached(QString)</signal>
+ </slots>
 </ui>

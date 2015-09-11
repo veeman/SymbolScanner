@@ -1,11 +1,19 @@
 #include "WinSymbolScanner.h"
+#include "QImageLoader.h"
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QThreadPool>
+#include <QDir>
 
 WinSymbolScanner::WinSymbolScanner(QWidget *parent)
   : QMainWindow(parent)
 {
   _ui.setupUi(this);
+
+  qobject_cast<QMainWindowChild*>(_ui.pageSelect)->setParentMainWindow(this);
+  QObject::connect(this, SIGNAL(imageCached(const QString&)),
+                   _ui.pageSelect, SLOT(onImageAvailable(const QString&)));
+
   setGeometry(QStyle::alignedRect(Qt::LeftToRight, 
                                   Qt::AlignCenter, size(), 
                                   qApp->desktop()->availableGeometry()));
@@ -51,4 +59,31 @@ void WinSymbolScanner::on_pushButtonRestart_clicked(void)
 void WinSymbolScanner::on_pushButtonProcess_clicked(void)
 {
 
+}
+
+void WinSymbolScanner::recacheImages(const QString& directory)
+{
+  //TODO: remove absolute images
+  //_imageCache.clear();
+
+  auto fileList = QDir(directory).entryInfoList(property("defaultFileFilter").toStringList(),
+                                                QDir::Files | QDir::NoDotAndDotDot);
+
+  for (auto file : fileList)
+  {
+    auto filePath = file.filePath();
+    if (_imageCache.find(filePath) != _imageCache.end())
+      continue;
+
+    auto taskLoad = new QImageLoader(filePath);
+    connect(taskLoad, SIGNAL(finished(const QString&, const QImage&)), 
+            this, SLOT(imageFileLoaded(const QString&, const QImage&)));
+    QThreadPool::globalInstance()->start(taskLoad);
+  }
+}
+
+void WinSymbolScanner::imageFileLoaded(const QString& fileName, const QImage& image)
+{
+  _imageCache.insert(fileName, QPixmap::fromImage(image));
+  emit imageCached(fileName);
 }
