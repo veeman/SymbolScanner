@@ -8,6 +8,7 @@
 #include <opencv2/highgui/highgui.hpp>
 
 class QFileSystemModel;
+class QTimerEvent;
 
 class WinImageFilterGrid : public QMainWindowChild
 {
@@ -17,10 +18,14 @@ public:
   WinImageFilterGrid(QWidget *parent = 0);
   ~WinImageFilterGrid();
 
+protected:
+  virtual void timerEvent(QTimerEvent * event);
+
   public slots:
-  void refreshPreview(void);
+  void refreshPreview(const QImage& image);
 
   void on_checkBoxAutoRotate_stateChanged(int state);
+  void on_checkBoxInvertMask_stateChanged(int state);
   void on_buttonGroupPreviewSelection_buttonClicked(QAbstractButton* button);
   void on_widgetUpperColorSelector_colorChanged(QColor color);
   void on_widgetLowerColorSelector_colorChanged(QColor color);
@@ -32,11 +37,9 @@ private:
   Ui::WinImageFilterGrid _ui;
   QFileSystemModel *_fileModel;
   
-  bool _autoRotate;
+  bool _configChanged;
+  bool _processRunning;
   QString _currentFileName;
-  int _filterPreviewType;
-  QColor _filterUpperColor;
-  QColor _filterLowerColor;
 };
 
 #endif // WINIMAGEFILTEROPTIONS_H

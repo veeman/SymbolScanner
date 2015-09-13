@@ -19,6 +19,7 @@ QColor WidgetColorSelector::color(void) const
 void WidgetColorSelector::setColor(const QColor &c)
 {
   _color = c;
+  updateWidgets();
 }
 
 void WidgetColorSelector::updateWidgets()

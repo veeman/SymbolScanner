@@ -7,6 +7,7 @@
 class WidgetColorSelector : public QWidget
 {
   Q_OBJECT
+    Q_PROPERTY(QColor color MEMBER _color WRITE setColor)
 
 public:
   WidgetColorSelector(QWidget *parent = 0);

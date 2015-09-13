@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>935</width>
-    <height>532</height>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,15 +46,15 @@ Make sure the lines forms all cross points of the grid.</string>
          <property name="title">
           <string>Options</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
            <widget class="QCheckBox" name="checkBoxAutoRotate">
             <property name="text">
              <string>Try auto rotate</string>
             </property>
            </widget>
           </item>
-          <item>
+          <item row="1" column="0">
            <widget class="QRadioButton" name="radioButtonImageOriginal">
             <property name="text">
              <string>Original image</string>
@@ -70,7 +70,7 @@ Make sure the lines forms all cross points of the grid.</string>
             </attribute>
            </widget>
           </item>
-          <item>
+          <item row="2" column="0">
            <widget class="QRadioButton" name="radioButtonImageMask">
             <property name="text">
              <string>Grid image mask</string>
@@ -83,7 +83,7 @@ Make sure the lines forms all cross points of the grid.</string>
             </attribute>
            </widget>
           </item>
-          <item>
+          <item row="3" column="0">
            <widget class="QRadioButton" name="radioButtonImageGrid">
             <property name="text">
              <string>Grid image</string>
@@ -94,6 +94,13 @@ Make sure the lines forms all cross points of the grid.</string>
             <attribute name="buttonGroup">
              <string notr="true">buttonGroupPreviewSelection</string>
             </attribute>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="checkBoxInvertMask">
+            <property name="text">
+             <string>Inverted Mask</string>
+            </property>
            </widget>
           </item>
          </layout>
@@ -122,7 +129,7 @@ Make sure the lines forms all cross points of the grid.</string>
         <number>0</number>
        </property>
        <item>
-        <widget class="QGroupBox" name="groupBoxUpper">
+        <widget class="QGroupBox" name="groupBoxLower">
          <property name="minimumSize">
           <size>
            <width>331</width>
@@ -130,11 +137,19 @@ Make sure the lines forms all cross points of the grid.</string>
           </size>
          </property>
          <property name="title">
-          <string>Upper Border</string>
+          <string>Lower Border</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="WidgetColorSelector" name="widgetUpperColorSelector" native="true"/>
+           <widget class="WidgetColorSelector" name="widgetLowerColorSelector" native="true">
+            <property name="color" stdset="0">
+             <color>
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -153,7 +168,7 @@ Make sure the lines forms all cross points of the grid.</string>
         </spacer>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBoxLower">
+        <widget class="QGroupBox" name="groupBoxUpper">
          <property name="minimumSize">
           <size>
            <width>331</width>
@@ -161,11 +176,19 @@ Make sure the lines forms all cross points of the grid.</string>
           </size>
          </property>
          <property name="title">
-          <string>Lower Border</string>
+          <string>Upper Border</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="WidgetColorSelector" name="widgetLowerColorSelector" native="true"/>
+           <widget class="WidgetColorSelector" name="widgetUpperColorSelector" native="true">
+            <property name="color" stdset="0">
+             <color>
+              <red>200</red>
+              <green>153</green>
+              <blue>154</blue>
+             </color>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

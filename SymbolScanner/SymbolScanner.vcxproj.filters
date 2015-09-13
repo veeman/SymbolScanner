@@ -101,6 +101,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_QMainWindowChild.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="QImageProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QImageProcessor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QImageProcessor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="WinSymbolScanner.h">
@@ -137,6 +146,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="QMainWindowChild.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QImageProcessor.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

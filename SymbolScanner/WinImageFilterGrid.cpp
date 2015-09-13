@@ -1,14 +1,18 @@
 #include "WinImageFilterGrid.h"
 #include "WinSymbolScanner.h"
-#include "qtcvHelper.h"
-#include <QListWidget>
+#include "QImageProcessor.h"
 #include <QFileSystemModel>
+#include <QThreadPool>
 
 WinImageFilterGrid::WinImageFilterGrid(QWidget *parent)
-  : QMainWindowChild(parent)
+  : QMainWindowChild(parent),
+  _fileModel(nullptr),
+  _configChanged(false),
+  _processRunning(false),
+  _currentFileName(QString())
 {
   _ui.setupUi(this);
-  
+
   // setup file listener
   _fileModel = new QFileSystemModel(this);
   _fileModel->setFilter(QDir::Files);
@@ -19,6 +23,8 @@ WinImageFilterGrid::WinImageFilterGrid(QWidget *parent)
 
   connect(_ui.listViewFiles->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)),
           this, SLOT(onc_listViewSelectionModel_currentChanged(const QModelIndex&, const QModelIndex&)));
+
+  startTimer(1000);
 }
 
 WinImageFilterGrid::~WinImageFilterGrid()
@@ -26,50 +32,89 @@ WinImageFilterGrid::~WinImageFilterGrid()
 
 }
 
-void WinImageFilterGrid::refreshPreview(void)
+void WinImageFilterGrid::timerEvent(QTimerEvent * event)
 {
-  // _currentFileName, _autoRotate, _filterPreviewType, _filterUpperColor, _filterLowerColor
+  if (_configChanged && !_processRunning)
+  {
+    if (_currentFileName.isNull())
+    {
+      _ui.labelPreview->setText(_ui.labelPreview->property("defaultText").toString());
+      _configChanged = false;
+      return;
+    }
 
-  /*
-  QPixmap orgPix = parentMainWindow()->imageCache().value(fileName);
-  cv::Mat org = qPixmapToCvMat(orgPix, false);
+    QImage image = parentMainWindow()->imageCache().value(_currentFileName).toImage();
+    bool autoRotate = (_ui.checkBoxAutoRotate->checkState() == Qt::Checked);
+    bool invertedMask = (_ui.checkBoxInvertMask->checkState() == Qt::Checked);
+    int filterPreviewType = _ui.buttonGroupPreviewSelection->checkedButton()->property("id").toInt();
+    QColor filterUpperColor = _ui.widgetUpperColorSelector->color();
+    QColor filterLowerColor = _ui.widgetLowerColorSelector->color();
 
-  cv::Mat greyMat;
-  cv::cvtColor(org, greyMat, CV_BGR2GRAY);
+    QImageProcessor::FilterType previewType;
+    switch (filterPreviewType)
+    {
+      case 1:
+        previewType = QImageProcessor::Mask;
+        break;
+      case 2:
+        previewType = QImageProcessor::AppliedMask;
+          break;
+      default:
+        previewType = QImageProcessor::None;
+        break;
+    }
 
-  QPixmap editedPix = cvMatToQPixmap(greyMat);
-  _ui.labelPreview->setPixmap(editedPix);
-  */
+    _configChanged = false;
+    _processRunning = true;
+
+    auto taskProcess = new QImageProcessor(image, autoRotate, invertedMask, previewType, filterUpperColor, filterLowerColor);
+    connect(taskProcess, SIGNAL(finished(const QImage&)),
+            this, SLOT(refreshPreview(const QImage&)));
+    QThreadPool::globalInstance()->start(taskProcess);
+  }
+}
+
+void WinImageFilterGrid::refreshPreview(const QImage& image)
+{
+  _processRunning = false;
+  _ui.labelPreview->setPixmap(QPixmap::fromImage(image));
 }
 
 void WinImageFilterGrid::on_checkBoxAutoRotate_stateChanged(int state)
 {
-  _autoRotate = (state == Qt::Checked);
-  refreshPreview();
+  _configChanged = true;
+  timerEvent(nullptr);
+}
+
+void WinImageFilterGrid::on_checkBoxInvertMask_stateChanged(int state)
+{
+  _configChanged = true;
+  timerEvent(nullptr);
 }
 
 void WinImageFilterGrid::on_buttonGroupPreviewSelection_buttonClicked(QAbstractButton* button)
 {
-  _filterPreviewType = button->property("id").toInt();
-  refreshPreview();
+  _configChanged = true;
+  timerEvent(nullptr);
 }
 
 void WinImageFilterGrid::on_widgetUpperColorSelector_colorChanged(QColor color)
 {
-  _filterUpperColor = color;
-  refreshPreview();
+  _configChanged = true;
+  timerEvent(nullptr);
 }
 
 void WinImageFilterGrid::on_widgetLowerColorSelector_colorChanged(QColor color)
 {
-  _filterLowerColor = color;
-  refreshPreview();
+  _configChanged = true;
+  timerEvent(nullptr);
 }
 
 void WinImageFilterGrid::onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
   _currentFileName = _fileModel->filePath(current);
-  refreshPreview();
+  _configChanged = true;
+  timerEvent(nullptr);
 }
 
 void WinImageFilterGrid::setCurrentFolder(const QString& directory)
@@ -77,4 +122,8 @@ void WinImageFilterGrid::setCurrentFolder(const QString& directory)
   _fileModel->setNameFilters(parentMainWindow()->property("defaultFileFilter").toStringList());
   _ui.listViewFiles->clearSelection();
   _ui.listViewFiles->setRootIndex(_fileModel->setRootPath(directory));
+
+  _currentFileName = QString();
+  _configChanged = true;
+  timerEvent(nullptr);
 }
