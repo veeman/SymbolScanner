@@ -77,15 +77,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_WinImageSelector.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_WinImageFilterGrid.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_WinImageFilterGrid.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="WinImageFilterGrid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="QImageLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -109,6 +100,15 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_QImageProcessor.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_WinImageFilter.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_WinImageFilter.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="WinImageFilter.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,12 +136,6 @@
     <CustomBuild Include="WinImageSelector.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="WinImageFilterGrid.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="WinImageFilterGrid.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="QImageLoader.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -149,6 +143,12 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="QImageProcessor.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="WinImageFilter.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="WinImageFilter.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -165,7 +165,7 @@
     <ClInclude Include="GeneratedFiles\ui_WinImageSelector.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_WinImageFilterGrid.h">
+    <ClInclude Include="GeneratedFiles\ui_WinImageFilter.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,7 @@
 #define WINIMAGEFILTEROPTIONS_H
 
 #include "QMainWindowChild.h"
-#include "ui_WinImageFilterGrid.h"
+#include "ui_WinImageFilter.h"
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -10,13 +10,13 @@
 class QFileSystemModel;
 class QTimerEvent;
 
-class WinImageFilterGrid : public QMainWindowChild
+class WinImageFilter : public QMainWindowChild
 {
   Q_OBJECT
 
 public:
-  WinImageFilterGrid(QWidget *parent = 0);
-  ~WinImageFilterGrid();
+  WinImageFilter(QWidget *parent = 0);
+  ~WinImageFilter();
 
 protected:
   virtual void timerEvent(QTimerEvent * event);
@@ -24,9 +24,9 @@ protected:
   public slots:
   void refreshPreview(const QImage& image);
 
-  void on_checkBoxAutoRotate_stateChanged(int state);
-  void on_checkBoxInvertMask_stateChanged(int state);
-  void on_buttonGroupPreviewSelection_buttonClicked(QAbstractButton* button);
+  void on_checkBoxGridAutoRotate_stateChanged(int state);
+  void on_checkBoxGridInvertMask_stateChanged(int state);
+  void on_buttonGroupGridPreviewSelection_buttonClicked(QAbstractButton* button);
   void on_widgetUpperColorSelector_colorChanged(QColor color);
   void on_widgetLowerColorSelector_colorChanged(QColor color);
 
@@ -34,7 +34,7 @@ protected:
   void setCurrentFolder(const QString& directory);
 
 private:
-  Ui::WinImageFilterGrid _ui;
+  Ui::WinImageFilter _ui;
   QFileSystemModel *_fileModel;
   
   bool _configChanged;

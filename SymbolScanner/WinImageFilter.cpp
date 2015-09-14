@@ -1,10 +1,10 @@
-#include "WinImageFilterGrid.h"
+#include "WinImageFilter.h"
 #include "WinSymbolScanner.h"
 #include "QImageProcessor.h"
 #include <QFileSystemModel>
 #include <QThreadPool>
 
-WinImageFilterGrid::WinImageFilterGrid(QWidget *parent)
+WinImageFilter::WinImageFilter(QWidget *parent)
   : QMainWindowChild(parent),
   _fileModel(nullptr),
   _configChanged(false),
@@ -27,12 +27,12 @@ WinImageFilterGrid::WinImageFilterGrid(QWidget *parent)
   startTimer(1000);
 }
 
-WinImageFilterGrid::~WinImageFilterGrid()
+WinImageFilter::~WinImageFilter()
 {
 
 }
 
-void WinImageFilterGrid::timerEvent(QTimerEvent * event)
+void WinImageFilter::timerEvent(QTimerEvent * event)
 {
   if (_configChanged && !_processRunning)
   {
@@ -44,9 +44,9 @@ void WinImageFilterGrid::timerEvent(QTimerEvent * event)
     }
 
     QImage image = parentMainWindow()->imageCache().value(_currentFileName).toImage();
-    bool autoRotate = (_ui.checkBoxAutoRotate->checkState() == Qt::Checked);
-    bool invertedMask = (_ui.checkBoxInvertMask->checkState() == Qt::Checked);
-    int filterPreviewType = _ui.buttonGroupPreviewSelection->checkedButton()->property("id").toInt();
+    bool autoRotate = (_ui.checkBoxGridAutoRotate->checkState() == Qt::Checked);
+    bool invertedMask = (_ui.checkBoxGridInvertMask->checkState() == Qt::Checked);
+    int filterPreviewType = _ui.buttonGroupGridPreviewSelection->checkedButton()->property("id").toInt();
     QColor filterUpperColor = _ui.widgetUpperColorSelector->color();
     QColor filterLowerColor = _ui.widgetLowerColorSelector->color();
 
@@ -74,50 +74,50 @@ void WinImageFilterGrid::timerEvent(QTimerEvent * event)
   }
 }
 
-void WinImageFilterGrid::refreshPreview(const QImage& image)
+void WinImageFilter::refreshPreview(const QImage& image)
 {
   _processRunning = false;
   _ui.labelPreview->setPixmap(QPixmap::fromImage(image));
 }
 
-void WinImageFilterGrid::on_checkBoxAutoRotate_stateChanged(int state)
+void WinImageFilter::on_checkBoxGridAutoRotate_stateChanged(int state)
 {
   _configChanged = true;
   timerEvent(nullptr);
 }
 
-void WinImageFilterGrid::on_checkBoxInvertMask_stateChanged(int state)
+void WinImageFilter::on_checkBoxGridInvertMask_stateChanged(int state)
 {
   _configChanged = true;
   timerEvent(nullptr);
 }
 
-void WinImageFilterGrid::on_buttonGroupPreviewSelection_buttonClicked(QAbstractButton* button)
+void WinImageFilter::on_buttonGroupGridPreviewSelection_buttonClicked(QAbstractButton* button)
 {
   _configChanged = true;
   timerEvent(nullptr);
 }
 
-void WinImageFilterGrid::on_widgetUpperColorSelector_colorChanged(QColor color)
+void WinImageFilter::on_widgetUpperColorSelector_colorChanged(QColor color)
 {
   _configChanged = true;
   timerEvent(nullptr);
 }
 
-void WinImageFilterGrid::on_widgetLowerColorSelector_colorChanged(QColor color)
+void WinImageFilter::on_widgetLowerColorSelector_colorChanged(QColor color)
 {
   _configChanged = true;
   timerEvent(nullptr);
 }
 
-void WinImageFilterGrid::onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
+void WinImageFilter::onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
   _currentFileName = _fileModel->filePath(current);
   _configChanged = true;
   timerEvent(nullptr);
 }
 
-void WinImageFilterGrid::setCurrentFolder(const QString& directory)
+void WinImageFilter::setCurrentFolder(const QString& directory)
 {
   _fileModel->setNameFilters(parentMainWindow()->property("defaultFileFilter").toStringList());
   _ui.listViewFiles->clearSelection();

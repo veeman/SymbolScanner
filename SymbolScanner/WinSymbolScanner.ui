@@ -512,8 +512,8 @@
        <number>0</number>
       </property>
       <widget class="WinImageSelector" name="pageSelect"/>
-      <widget class="WinImageFilterGrid" name="pageFilterGrid"/>
-      <widget class="QWidget" name="pageFilterSymbol"/>
+      <widget class="WinImageFilter" name="pageFilter"/>
+      <widget class="QWidget" name="pageProcessOptions"/>
      </widget>
     </item>
     <item>
@@ -614,9 +614,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>WinImageFilterGrid</class>
+   <class>WinImageFilter</class>
    <extends>QWidget</extends>
-   <header>WinImageFilterGrid.h</header>
+   <header>WinImageFilter.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

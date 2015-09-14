@@ -267,7 +267,6 @@ void QImageProcessor::run()
         }
       }
 
-
       QImage editedImage = cvMatToQImage(maskedImage).copy();
       emit finished(editedImage);
     }

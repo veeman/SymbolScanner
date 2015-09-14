@@ -12,13 +12,13 @@ WinSymbolScanner::WinSymbolScanner(QWidget *parent)
 
   // connect signals with pages
   qobject_cast<QMainWindowChild*>(_ui.pageSelect)->setParentMainWindow(this);
-  qobject_cast<QMainWindowChild*>(_ui.pageFilterGrid)->setParentMainWindow(this);
+  qobject_cast<QMainWindowChild*>(_ui.pageFilter)->setParentMainWindow(this);
 
   QObject::connect(this, SIGNAL(imageCached(const QString&)),
                    _ui.pageSelect, SLOT(onImageAvailable(const QString&)));
   
   QObject::connect(_ui.pageSelect, SIGNAL(pathChanged(const QString&)),
-                   _ui.pageFilterGrid, SLOT(setCurrentFolder(const QString&)));
+                   _ui.pageFilter, SLOT(setCurrentFolder(const QString&)));
 
   // center widget and trigger current selected page as default
   setGeometry(QStyle::alignedRect(Qt::LeftToRight, 
