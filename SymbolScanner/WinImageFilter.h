@@ -24,6 +24,7 @@ protected:
   public slots:
   void refreshPreview(const QImage& image);
 
+  void on_tabWidget_currentChanged(int index);
   void on_checkBoxGridAutoRotate_stateChanged(int state);
   void on_checkBoxGridInvertMask_stateChanged(int state);
   void on_buttonGroupGridPreviewSelection_buttonClicked(QAbstractButton* button);

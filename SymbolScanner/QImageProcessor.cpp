@@ -18,7 +18,7 @@ struct compareX
   }
 };
 
-cv::Point2f computeIntersect(cv::Vec4i a, cv::Vec4i b)
+cv::Point2f computeIntersect(cv::Vec4i a, cv::Vec4i b, int thres = 20)
 {
   int x1 = a[0], y1 = a[1], x2 = a[2], y2 = a[3];
   int x3 = b[0], y3 = b[1], x4 = b[2], y4 = b[3];
@@ -28,11 +28,11 @@ cv::Point2f computeIntersect(cv::Vec4i a, cv::Vec4i b)
     pt.x = ((x1*y2 - y1*x2) * (x3 - x4) - (x1 - x2) * (x3*y4 - y3*x4)) / d;
     pt.y = ((x1*y2 - y1*x2) * (y3 - y4) - (y1 - y2) * (x3*y4 - y3*x4)) / d;
     //-10 is a threshold, the POI can be off by at most 10 pixels
-    if (pt.x<std::min(x1, x2) - 10 || pt.x>std::max(x1, x2) + 10 || pt.y<std::min(y1, y2) - 10 || pt.y>std::max(y1, y2) + 10)
+    if (pt.x<std::min(x1, x2) - thres || pt.x>std::max(x1, x2) + thres || pt.y<std::min(y1, y2) - thres || pt.y>std::max(y1, y2) + thres)
     {
       return cv::Point2f(-1, -1);
     }
-    if (pt.x<std::min(x3, x4) - 10 || pt.x>std::max(x3, x4) + 10 || pt.y<std::min(y3, y4) - 10 || pt.y>std::max(y3, y4) + 10)
+    if (pt.x<std::min(x3, x4) - thres || pt.x>std::max(x3, x4) + thres || pt.y<std::min(y3, y4) - thres || pt.y>std::max(y3, y4) + thres)
     {
       return cv::Point2f(-1, -1);
     }

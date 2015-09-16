@@ -80,6 +80,12 @@ void WinImageFilter::refreshPreview(const QImage& image)
   _ui.labelPreview->setPixmap(QPixmap::fromImage(image));
 }
 
+void WinImageFilter::on_tabWidget_currentChanged(int index)
+{
+  _configChanged = true;
+  timerEvent(nullptr);
+}
+
 void WinImageFilter::on_checkBoxGridAutoRotate_stateChanged(int state)
 {
   _configChanged = true;

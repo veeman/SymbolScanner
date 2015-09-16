@@ -10,8 +10,11 @@
 
 inline cv::Scalar qColorToCvScalar(const QColor &color)
 {
-  int h, s, v;
-  color.getHsv(&h, &s, &v);
+  qreal h, s, v;
+  color.getHsvF(&h, &s, &v);
+  h *= 180.0;
+  s *= 255.0;
+  v *= 255.0;
   return cv::Scalar(h, s, v);
 }
 
