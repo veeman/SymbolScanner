@@ -35,6 +35,11 @@ WinImageSelector::WinImageSelector(QWidget *parent)
 WinImageSelector::~WinImageSelector()
 {}
 
+void WinImageSelector::reset(void)
+{
+
+}
+
 void WinImageSelector::onc_treeViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
   // selected directory changed, update file listener

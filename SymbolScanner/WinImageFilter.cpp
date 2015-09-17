@@ -32,6 +32,11 @@ WinImageFilter::~WinImageFilter()
 
 }
 
+void WinImageFilter::reset(void)
+{
+
+}
+
 void WinImageFilter::timerEvent(QTimerEvent * event)
 {
   if (_configChanged && !_processRunning)
@@ -82,6 +87,8 @@ void WinImageFilter::refreshPreview(const QImage& image)
 
 void WinImageFilter::on_tabWidget_currentChanged(int index)
 {
+  
+
   _configChanged = true;
   timerEvent(nullptr);
 }

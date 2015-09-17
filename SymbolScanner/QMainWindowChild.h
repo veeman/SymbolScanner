@@ -24,6 +24,8 @@ public:
     return _parentMainWin;
   }
 
+  virtual void reset(void) = 0;
+
 private:
   WinSymbolScanner *_parentMainWin;
 };

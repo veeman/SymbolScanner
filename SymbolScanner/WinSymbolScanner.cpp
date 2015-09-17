@@ -59,7 +59,14 @@ void WinSymbolScanner::on_pushButtonBack_clicked(void)
 
 void WinSymbolScanner::on_pushButtonRestart_clicked(void)
 {
-  // TODO: reset subwidgets
+  
+  for (int i = 0; i<_ui.stackedWidget->count(); ++i)
+  {
+    QMainWindowChild *widget = qobject_cast<QMainWindowChild*>(_ui.stackedWidget->widget(i));
+    if (widget)
+      widget->reset();
+  }
+
   _ui.stackedWidget->setCurrentIndex(0);
 }
 

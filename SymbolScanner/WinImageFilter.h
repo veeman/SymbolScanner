@@ -18,6 +18,8 @@ public:
   WinImageFilter(QWidget *parent = 0);
   ~WinImageFilter();
 
+  virtual void reset(void);
+
 protected:
   virtual void timerEvent(QTimerEvent * event);
 

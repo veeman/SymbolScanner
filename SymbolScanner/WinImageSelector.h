@@ -15,6 +15,8 @@ public:
   WinImageSelector(QWidget *parent = 0);
   ~WinImageSelector();
 
+  void reset(void);
+
   const QString& currentDirectory(void) const;
 
   public slots:
