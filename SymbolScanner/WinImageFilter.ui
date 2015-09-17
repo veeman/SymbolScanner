@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1022</width>
-    <height>592</height>
+    <width>910</width>
+    <height>492</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,6 +34,47 @@ Make sure the lines forms all cross points of the grid.</string>
           </sizepolicy>
          </property>
         </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Process list:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonAddItem">
+           <property name="text">
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButtonRemoveItem">
+           <property name="text">
+            <string>Remove</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QListWidget" name="listWidgetProcessList"/>
        </item>
        <item>
         <widget class="QTabWidget" name="tabWidget">
@@ -276,6 +317,12 @@ Make sure the lines forms all cross points of the grid.</string>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>240</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="text">
           <string>No image selected</string>
          </property>
@@ -310,7 +357,7 @@ Make sure the lines forms all cross points of the grid.</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroupSymbolPreviewSelection"/>
   <buttongroup name="buttonGroupGridPreviewSelection"/>
+  <buttongroup name="buttonGroupSymbolPreviewSelection"/>
  </buttongroups>
 </ui>

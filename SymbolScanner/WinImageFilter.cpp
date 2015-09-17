@@ -34,7 +34,7 @@ WinImageFilter::~WinImageFilter()
 
 void WinImageFilter::reset(void)
 {
-
+  _ui.listWidgetProcessList->clear();
 }
 
 void WinImageFilter::timerEvent(QTimerEvent * event)
@@ -87,10 +87,23 @@ void WinImageFilter::refreshPreview(const QImage& image)
 
 void WinImageFilter::on_tabWidget_currentChanged(int index)
 {
-  
-
   _configChanged = true;
   timerEvent(nullptr);
+}
+
+void WinImageFilter::on_listWidgetProcessList_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous)
+{
+
+}
+
+void WinImageFilter::on_pushButtonAddItem_clicked(void)
+{
+
+}
+
+void WinImageFilter::on_pushButtonRemoveItem_clicked(void)
+{
+
 }
 
 void WinImageFilter::on_checkBoxGridAutoRotate_stateChanged(int state)
