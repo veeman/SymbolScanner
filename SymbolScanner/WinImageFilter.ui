@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>WinImageFilterOptions</string>
   </property>
-  <property name="desciption" stdset="0">
+  <property name="description" stdset="0">
    <string>In this step move the slider of the lower and upper color border until you see only the grid of your symbol image.
 Make sure the lines forms all cross points of the grid.</string>
   </property>
@@ -36,52 +36,14 @@ Make sure the lines forms all cross points of the grid.</string>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Process list:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButtonAddItem">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButtonRemoveItem">
-           <property name="text">
-            <string>Remove</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QListWidget" name="listWidgetProcessList"/>
-       </item>
-       <item>
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
           <number>0</number>
          </property>
          <widget class="QWidget" name="tabWidgetPageGrid">
+          <property name="id" stdset="0">
+           <number>0</number>
+          </property>
           <attribute name="title">
            <string>Grid</string>
           </attribute>
@@ -145,6 +107,9 @@ Make sure the lines forms all cross points of the grid.</string>
           </layout>
          </widget>
          <widget class="QWidget" name="tabWidgetPageSymbol">
+          <property name="id" stdset="0">
+           <number>1</number>
+          </property>
           <attribute name="title">
            <string>Symbol</string>
           </attribute>

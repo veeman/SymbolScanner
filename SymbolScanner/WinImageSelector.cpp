@@ -37,7 +37,7 @@ WinImageSelector::~WinImageSelector()
 
 void WinImageSelector::reset(void)
 {
-
+  _ui.treeViewDirs->setCurrentIndex(_dirModel->index(QDir::currentPath()));
 }
 
 void WinImageSelector::onc_treeViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)

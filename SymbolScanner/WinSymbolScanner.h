@@ -3,8 +3,10 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_WinSymbolScanner.h"
+#include <QImageFilterOptions.h>
 
 typedef QHash<QString, QPixmap> QImageCache;
+typedef QHash<QString, QImageFilterOptions> QImageFilterOptionsCache;
 
 class WinSymbolScanner : public QMainWindow
 {
@@ -25,6 +27,7 @@ public:
   void imageFileLoaded(const QString& fileName, const QImage& image);
 
   const QImageCache& imageCache(void) const;
+  QImageFilterOptionsCache& imageFilterOptions();
 
 signals:
   void imageCached(const QString& fileName);
@@ -32,11 +35,17 @@ signals:
 private:
   Ui::WinSymbolScannerClass _ui;
   QImageCache _imageCache;
+  QImageFilterOptionsCache _imageFilterOptions;
 };
 
 inline const QImageCache& WinSymbolScanner::imageCache(void) const
 {
   return _imageCache;
+}
+
+inline QImageFilterOptionsCache& WinSymbolScanner::imageFilterOptions(void)
+{
+  return _imageFilterOptions;
 }
 
 #endif // WINSYMBOLSCANNER_H

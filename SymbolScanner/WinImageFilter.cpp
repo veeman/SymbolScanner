@@ -34,7 +34,7 @@ WinImageFilter::~WinImageFilter()
 
 void WinImageFilter::reset(void)
 {
-  _ui.listWidgetProcessList->clear();
+
 }
 
 void WinImageFilter::timerEvent(QTimerEvent * event)
@@ -49,9 +49,14 @@ void WinImageFilter::timerEvent(QTimerEvent * event)
     }
 
     QImage image = parentMainWindow()->imageCache().value(_currentFileName).toImage();
-    bool autoRotate = (_ui.checkBoxGridAutoRotate->checkState() == Qt::Checked);
-    bool invertedMask = (_ui.checkBoxGridInvertMask->checkState() == Qt::Checked);
-    int filterPreviewType = _ui.buttonGroupGridPreviewSelection->checkedButton()->property("id").toInt();
+
+    int filterMode = _ui.tabWidget->currentWidget()->property("id").toInt();
+
+    bool autoRotate = filterMode == 0 ? (_ui.checkBoxGridAutoRotate->checkState() == Qt::Checked) : false;
+    bool invertedMask = filterMode == 0 ? (_ui.checkBoxGridInvertMask->checkState() == Qt::Checked) :
+      (_ui.checkBoxSymbolInvertMask->checkState() == Qt::Checked);
+    int filterPreviewType = filterMode == 0 ? _ui.buttonGroupGridPreviewSelection->checkedButton()->property("id").toInt() :
+      _ui.buttonGroupSymbolPreviewSelection->checkedButton()->property("id").toInt();
     QColor filterUpperColor = _ui.widgetUpperColorSelector->color();
     QColor filterLowerColor = _ui.widgetLowerColorSelector->color();
 
@@ -91,21 +96,6 @@ void WinImageFilter::on_tabWidget_currentChanged(int index)
   timerEvent(nullptr);
 }
 
-void WinImageFilter::on_listWidgetProcessList_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous)
-{
-
-}
-
-void WinImageFilter::on_pushButtonAddItem_clicked(void)
-{
-
-}
-
-void WinImageFilter::on_pushButtonRemoveItem_clicked(void)
-{
-
-}
-
 void WinImageFilter::on_checkBoxGridAutoRotate_stateChanged(int state)
 {
   _configChanged = true;
@@ -132,6 +122,12 @@ void WinImageFilter::on_widgetUpperColorSelector_colorChanged(QColor color)
 
 void WinImageFilter::on_widgetLowerColorSelector_colorChanged(QColor color)
 {
+  if (!_currentFileName.isEmpty())
+  {
+    auto options = parentMainWindow()->imageFilterOptions()[_currentFileName];
+    options.gridLowerColor = color;
+  }
+
   _configChanged = true;
   timerEvent(nullptr);
 }
@@ -139,6 +135,9 @@ void WinImageFilter::on_widgetLowerColorSelector_colorChanged(QColor color)
 void WinImageFilter::onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
   _currentFileName = _fileModel->filePath(current);
+
+  // todo load options to widgets
+
   _configChanged = true;
   timerEvent(nullptr);
 }

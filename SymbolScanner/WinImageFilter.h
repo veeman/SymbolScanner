@@ -28,9 +28,6 @@ protected:
   void refreshPreview(const QImage& image);
 
   void on_tabWidget_currentChanged(int index);
-  void on_listWidgetProcessList_currentItemChanged(QListWidgetItem* current, QListWidgetItem* previous);
-  void on_pushButtonAddItem_clicked(void);
-  void on_pushButtonRemoveItem_clicked(void);
   void on_checkBoxGridAutoRotate_stateChanged(int state);
   void on_checkBoxGridInvertMask_stateChanged(int state);
   void on_buttonGroupGridPreviewSelection_buttonClicked(QAbstractButton* button);

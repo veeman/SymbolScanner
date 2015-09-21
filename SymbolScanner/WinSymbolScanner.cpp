@@ -1,5 +1,6 @@
 #include "WinSymbolScanner.h"
 #include "QImageLoader.h"
+#include "QImageFilterOptions.h"
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QThreadPool>
@@ -26,6 +27,7 @@ WinSymbolScanner::WinSymbolScanner(QWidget *parent)
                                   qApp->desktop()->availableGeometry()));
 
   on_stackedWidget_currentChanged(_ui.stackedWidget->currentIndex());
+  on_pushButtonRestart_clicked();
 }
 
 WinSymbolScanner::~WinSymbolScanner()
