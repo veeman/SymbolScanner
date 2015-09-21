@@ -92,54 +92,86 @@ void WinImageFilter::refreshPreview(const QImage& image)
 
 void WinImageFilter::on_tabWidget_currentChanged(int index)
 {
-  _configChanged = true;
-  timerEvent(nullptr);
+  updateChanges([](QImageFilterOptions&){});
 }
 
 void WinImageFilter::on_checkBoxGridAutoRotate_stateChanged(int state)
 {
-  _configChanged = true;
-  timerEvent(nullptr);
+  updateChanges([&](QImageFilterOptions& options)
+  {
+    options.autoRotate = state == Qt::Checked;
+  });
 }
 
 void WinImageFilter::on_checkBoxGridInvertMask_stateChanged(int state)
 {
-  _configChanged = true;
-  timerEvent(nullptr);
+  updateChanges([&](QImageFilterOptions& options)
+  {
+    options.gridMaskInverted = state == Qt::Checked;
+  });
 }
 
 void WinImageFilter::on_buttonGroupGridPreviewSelection_buttonClicked(QAbstractButton* button)
 {
-  _configChanged = true;
-  timerEvent(nullptr);
+  updateChanges([](QImageFilterOptions&){});
+}
+
+void WinImageFilter::on_checkBoxSymbolUseMask_stateChanged(int state)
+{
+  updateChanges([&](QImageFilterOptions& options)
+  {
+    options.symbolFilterEnabled = state == Qt::Checked;
+  });
+}
+
+void WinImageFilter::on_checkBoxSymbolInvertMask_stateChanged(int state)
+{
+  updateChanges([&](QImageFilterOptions& options)
+  {
+    options.symbolMaskInverted = state == Qt::Checked;
+  });
+}
+
+void WinImageFilter::on_buttonGroupSymbolPreviewSelection_buttonClicked(QAbstractButton* button)
+{
+  updateChanges([](QImageFilterOptions&){});
 }
 
 void WinImageFilter::on_widgetUpperColorSelector_colorChanged(QColor color)
 {
-  _configChanged = true;
-  timerEvent(nullptr);
+  updateChanges([&](QImageFilterOptions& options)
+  {
+    if (_ui.tabWidget->currentWidget()->property("id").toInt() == 0)
+      options.gridUpperColor = color;
+    else
+      options.symbolUpperColor = color;
+  });
 }
 
 void WinImageFilter::on_widgetLowerColorSelector_colorChanged(QColor color)
 {
-  if (!_currentFileName.isEmpty())
+  updateChanges([&](QImageFilterOptions& options)
   {
-    auto options = parentMainWindow()->imageFilterOptions()[_currentFileName];
-    options.gridLowerColor = color;
-  }
-
-  _configChanged = true;
-  timerEvent(nullptr);
+    if (_ui.tabWidget->currentWidget()->property("id").toInt() == 0)
+      options.gridLowerColor = color;
+    else
+      options.symbolLowerColor = color;
+  });
 }
 
 void WinImageFilter::onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
   _currentFileName = _fileModel->filePath(current);
+  updateChanges([&](QImageFilterOptions& options)
+  {
+    foreach(QWidget* w, findChildren<QWidget*>())
+      w->blockSignals(true);
 
-  // todo load options to widgets
+    // todo load options to widgets
 
-  _configChanged = true;
-  timerEvent(nullptr);
+    foreach(QWidget* w, findChildren<QWidget*>())
+      w->blockSignals(false);
+  });
 }
 
 void WinImageFilter::setCurrentFolder(const QString& directory)
@@ -148,7 +180,24 @@ void WinImageFilter::setCurrentFolder(const QString& directory)
   _ui.listViewFiles->clearSelection();
   _ui.listViewFiles->setRootIndex(_fileModel->setRootPath(directory));
 
-  _currentFileName = QString();
+  updateChanges([](QImageFilterOptions&){});
+}
+
+void WinImageFilter::updateChanges(std::function<void(QImageFilterOptions&)> callback)
+{
+  if (!_currentFileName.isEmpty() && callback)
+  {
+    auto optionsCache = parentMainWindow()->imageFilterOptions();
+
+    if (!optionsCache.contains(_currentFileName))
+    {
+      // todo set default values
+    }
+
+    auto options = optionsCache[_currentFileName];
+    callback(options);
+  }
+
   _configChanged = true;
   timerEvent(nullptr);
 }

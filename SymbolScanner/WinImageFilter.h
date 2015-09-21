@@ -3,6 +3,8 @@
 
 #include "QMainWindowChild.h"
 #include "ui_WinImageFilter.h"
+#include "QImageFilterOptions.h"
+#include <functional>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -16,6 +18,7 @@ class WinImageFilter : public QMainWindowChild
   Q_OBJECT
 
 public:
+
   WinImageFilter(QWidget *parent = 0);
   ~WinImageFilter();
 
@@ -28,14 +31,21 @@ protected:
   void refreshPreview(const QImage& image);
 
   void on_tabWidget_currentChanged(int index);
+
   void on_checkBoxGridAutoRotate_stateChanged(int state);
   void on_checkBoxGridInvertMask_stateChanged(int state);
   void on_buttonGroupGridPreviewSelection_buttonClicked(QAbstractButton* button);
+
+  void on_checkBoxSymbolUseMask_stateChanged(int state);
+  void on_checkBoxSymbolInvertMask_stateChanged(int state);
+  void on_buttonGroupSymbolPreviewSelection_buttonClicked(QAbstractButton* button);
+
   void on_widgetUpperColorSelector_colorChanged(QColor color);
   void on_widgetLowerColorSelector_colorChanged(QColor color);
 
   void onc_listViewSelectionModel_currentChanged(const QModelIndex& current, const QModelIndex& previous);
   void setCurrentFolder(const QString& directory);
+  void updateChanges(std::function<void(QImageFilterOptions&)> callback);
 
 private:
   Ui::WinImageFilter _ui;

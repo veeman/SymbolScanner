@@ -7,8 +7,6 @@
 class QImageFilterOptions
 {
 public:
-  QString fileName;
-  
   bool autoRotate;
 
   QColor gridLowerColor;
@@ -16,6 +14,9 @@ public:
   bool gridMaskInverted;
 
   bool symbolFilterEnabled;
+  bool symbolMaskInverted;
+  QColor symbolLowerColor;
+  QColor symbolUpperColor;
 };
 
 #endif // QIMAGEFILTEROPTIONS_H
