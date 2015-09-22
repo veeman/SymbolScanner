@@ -22,7 +22,9 @@ public:
   WinImageFilter(QWidget *parent = 0);
   ~WinImageFilter();
 
-  virtual void reset(void);
+  virtual void reset(void) override;
+  virtual void process(void) override;
+  virtual void pageSelected(void) override;
 
 protected:
   virtual void timerEvent(QTimerEvent * event);

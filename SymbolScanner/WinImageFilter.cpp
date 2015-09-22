@@ -37,6 +37,16 @@ void WinImageFilter::reset(void)
 
 }
 
+void WinImageFilter::process(void)
+{
+
+}
+
+void WinImageFilter::pageSelected(void)
+{
+
+}
+
 void WinImageFilter::timerEvent(QTimerEvent * event)
 {
   if (_configChanged && !_processRunning)

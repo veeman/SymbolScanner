@@ -15,7 +15,9 @@ public:
   WinImageSelector(QWidget *parent = 0);
   ~WinImageSelector();
 
-  void reset(void);
+  void reset(void) override;
+  void process(void) override;
+  void pageSelected(void) override;
 
   const QString& currentDirectory(void) const;
 

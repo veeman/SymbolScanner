@@ -12,8 +12,12 @@ WinSymbolScanner::WinSymbolScanner(QWidget *parent)
   _ui.setupUi(this);
 
   // connect signals with pages
-  qobject_cast<QMainWindowChild*>(_ui.pageSelect)->setParentMainWindow(this);
-  qobject_cast<QMainWindowChild*>(_ui.pageFilter)->setParentMainWindow(this);
+  for (int i = 0; i<_ui.stackedWidget->count(); ++i)
+  {
+    QMainWindowChild *widget = qobject_cast<QMainWindowChild*>(_ui.stackedWidget->widget(i));
+    if (widget)
+      widget->setParentMainWindow(this);
+  }
 
   QObject::connect(this, SIGNAL(imageCached(const QString&)),
                    _ui.pageSelect, SLOT(onImageAvailable(const QString&)));
@@ -35,18 +39,31 @@ WinSymbolScanner::~WinSymbolScanner()
 
 }
 
+void WinSymbolScanner::setEnabledWizardButtons(quint32 navButtons)
+{
+  _ui.pushButtonBack->setEnabled(navButtons & NAVBUTTONS_BACK);
+  _ui.pushButtonNext->setEnabled(navButtons & NAVBUTTONS_NEXT);
+  _ui.pushButtonProcess->setEnabled(navButtons & NAVBUTTONS_PROCESS);
+  _ui.pushButtonRestart->setEnabled(navButtons & NAVBUTTONS_RESTART);
+}
+
 void WinSymbolScanner::on_stackedWidget_currentChanged(int index)
 {
-  const QWidget* widget = _ui.stackedWidget->widget(index);
+  QWidget* widget = _ui.stackedWidget->widget(index);
   const QString description = widget->property("description").toString();
   const quint32 navButtons = widget->property("navButtons").toUInt();
 
   _ui.labelDescription->setText(description);
+  setEnabledWizardButtons(NAVBUTTONS_ALL);
 
   _ui.pushButtonBack->setVisible(navButtons & NAVBUTTONS_BACK);
   _ui.pushButtonNext->setVisible(navButtons & NAVBUTTONS_NEXT);
   _ui.pushButtonProcess->setVisible(navButtons & NAVBUTTONS_PROCESS);
   _ui.pushButtonRestart->setVisible(navButtons & NAVBUTTONS_RESTART);
+
+  QMainWindowChild *child = qobject_cast<QMainWindowChild*>(widget);
+  if (child)
+    child->pageSelected();
 }
 
 void WinSymbolScanner::on_pushButtonNext_clicked(void)
@@ -78,7 +95,9 @@ void WinSymbolScanner::on_pushButtonRestart_clicked(void)
 
 void WinSymbolScanner::on_pushButtonProcess_clicked(void)
 {
-
+  QMainWindowChild *widget = qobject_cast<QMainWindowChild*>(_ui.stackedWidget->currentWidget());
+  if (widget)
+    widget->process();
 }
 
 void WinSymbolScanner::recacheImages(const QString& directory)

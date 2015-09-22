@@ -9,6 +9,7 @@
 #define NAVBUTTONS_NEXT     0x02
 #define NAVBUTTONS_PROCESS  0x04
 #define NAVBUTTONS_RESTART  0x08
+#define NAVBUTTONS_ALL      0xFF
 
 typedef QHash<QString, QPixmap> QImageCache;
 typedef QHash<QString, QImageFilterOptions> QImageFilterOptionsCache;
@@ -20,6 +21,8 @@ class WinSymbolScanner : public QMainWindow
 public:
   WinSymbolScanner(QWidget *parent = 0);
   ~WinSymbolScanner();
+
+  void setEnabledWizardButtons(quint32 navButtons);
 
   public slots:
   void on_stackedWidget_currentChanged(int index);

@@ -25,6 +25,8 @@ public:
   }
 
   virtual void reset(void) = 0;
+  virtual void process(void) = 0;
+  virtual void pageSelected(void) = 0;
 
 private:
   WinSymbolScanner *_parentMainWin;

@@ -13,12 +13,15 @@ public:
   WinImageProcessor(QWidget *parent = 0);
   ~WinImageProcessor();
 
-  void reset(void);
+  virtual void reset(void) override;
+  virtual void process(void) override;
+  virtual void pageSelected(void) override;
 
   public slots:
   void reFillProcessList(void);
 private:
   Ui::WinImageProcessor _ui;
+  bool _processRunning;
 };
 
 
