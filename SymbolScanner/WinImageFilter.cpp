@@ -225,11 +225,13 @@ void WinImageFilter::updateChanges(std::function<void(QImageFilterOptions&)> cal
     {
       QImageFilterOptions newOptions;
       newOptions.autoRotate = (_ui.checkBoxGridAutoRotate->checkState() == Qt::Checked);
-      newOptions.gridLowerColor = _ui.widgetLowerColorSelector->property("color").value<QColor>();
-      newOptions.gridUpperColor = _ui.widgetUpperColorSelector->property("color").value<QColor>();
       newOptions.gridMaskInverted = (_ui.checkBoxGridInvertMask->checkState() == Qt::Checked);
       newOptions.symbolFilterEnabled = (_ui.checkBoxSymbolUseMask->checkState() == Qt::Checked);
       newOptions.symbolMaskInverted = (_ui.checkBoxSymbolInvertMask->checkState() == Qt::Checked);
+
+      newOptions.gridLowerColor = _ui.widgetLowerColorSelector->property("color").value<QColor>();
+      newOptions.gridUpperColor = _ui.widgetUpperColorSelector->property("color").value<QColor>();
+
       newOptions.symbolLowerColor = _ui.widgetLowerColorSelector->property("color").value<QColor>();
       newOptions.symbolUpperColor = _ui.widgetUpperColorSelector->property("color").value<QColor>();
       optionsCache[_currentFileName] = newOptions;

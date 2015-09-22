@@ -37,6 +37,7 @@ WinImageSelector::~WinImageSelector()
 
 void WinImageSelector::reset(void)
 {
+  // reset default path to current working directory
   _ui.treeViewDirs->setCurrentIndex(_dirModel->index(QDir::currentPath()));
 }
 

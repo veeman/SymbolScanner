@@ -509,11 +509,12 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="WinImageSelector" name="pageSelect"/>
       <widget class="WinImageFilter" name="pageFilter"/>
-      <widget class="QWidget" name="pageProcessOptions"/>
+      <widget class="WinImageProcessor" name="pageProcessOptions"/>
+      <widget class="QWidget" name="page"/>
      </widget>
     </item>
     <item>
@@ -617,6 +618,12 @@
    <class>WinImageFilter</class>
    <extends>QWidget</extends>
    <header>WinImageFilter.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WinImageProcessor</class>
+   <extends>QWidget</extends>
+   <header>WinImageProcessor.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

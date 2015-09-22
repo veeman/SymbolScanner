@@ -17,6 +17,9 @@
    <string>In this step move the slider of the lower and upper color border until you see only the grid of your symbol image.
 Make sure the lines forms all cross points of the grid.</string>
   </property>
+  <property name="navButtons" stdset="0">
+   <UInt>11</UInt>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout_4">
    <item>
     <widget class="QSplitter" name="splitter">

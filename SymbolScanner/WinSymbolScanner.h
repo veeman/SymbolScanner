@@ -5,6 +5,11 @@
 #include "ui_WinSymbolScanner.h"
 #include <QImageFilterOptions.h>
 
+#define NAVBUTTONS_BACK     0x01
+#define NAVBUTTONS_NEXT     0x02
+#define NAVBUTTONS_PROCESS  0x04
+#define NAVBUTTONS_RESTART  0x08
+
 typedef QHash<QString, QPixmap> QImageCache;
 typedef QHash<QString, QImageFilterOptions> QImageFilterOptionsCache;
 

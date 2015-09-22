@@ -37,14 +37,16 @@ WinSymbolScanner::~WinSymbolScanner()
 
 void WinSymbolScanner::on_stackedWidget_currentChanged(int index)
 {
-  const QWidget *widget = _ui.stackedWidget->widget(index);
+  const QWidget* widget = _ui.stackedWidget->widget(index);
   const QString description = widget->property("description").toString();
+  const quint32 navButtons = widget->property("navButtons").toUInt();
+
   _ui.labelDescription->setText(description);
 
-  const int lastIndex = _ui.stackedWidget->count() - 1;
-  _ui.pushButtonNext->setVisible(index != lastIndex);
-  _ui.pushButtonBack->setVisible((index != 0) && (index != lastIndex));
-  _ui.pushButtonProcess->setVisible(index == lastIndex);
+  _ui.pushButtonBack->setVisible(navButtons & NAVBUTTONS_BACK);
+  _ui.pushButtonNext->setVisible(navButtons & NAVBUTTONS_NEXT);
+  _ui.pushButtonProcess->setVisible(navButtons & NAVBUTTONS_PROCESS);
+  _ui.pushButtonRestart->setVisible(navButtons & NAVBUTTONS_RESTART);
 }
 
 void WinSymbolScanner::on_pushButtonNext_clicked(void)
@@ -61,7 +63,6 @@ void WinSymbolScanner::on_pushButtonBack_clicked(void)
 
 void WinSymbolScanner::on_pushButtonRestart_clicked(void)
 {
-  
   for (int i = 0; i<_ui.stackedWidget->count(); ++i)
   {
     QMainWindowChild *widget = qobject_cast<QMainWindowChild*>(_ui.stackedWidget->widget(i));
@@ -70,6 +71,9 @@ void WinSymbolScanner::on_pushButtonRestart_clicked(void)
   }
 
   _ui.stackedWidget->setCurrentIndex(0);
+
+  _imageCache.clear();
+  _imageFilterOptions.clear();
 }
 
 void WinSymbolScanner::on_pushButtonProcess_clicked(void)

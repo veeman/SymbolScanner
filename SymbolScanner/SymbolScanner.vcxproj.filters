@@ -74,6 +74,12 @@
     <CustomBuild Include="WinSymbolScanner.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="WinImageProcessor.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="WinImageProcessor.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SymbolScanner.rc" />
@@ -154,6 +160,15 @@
     <ClCompile Include="GeneratedFiles\qrc_SymbolScanner.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="WinImageProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_WinImageProcessor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_WinImageProcessor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QImageFilterOptions.h">
@@ -172,6 +187,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_WinSymbolScanner.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_WinImageProcessor.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

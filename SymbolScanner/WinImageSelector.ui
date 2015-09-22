@@ -19,6 +19,9 @@ Therefore select the folder with the images which you want to process.
 Optimal are images in ISO A4 format with a resolution of 150 dpi.
 If you are done press next.</string>
   </property>
+  <property name="navButtons" stdset="0">
+   <UInt>10</UInt>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
     <widget class="QSplitter" name="splitter">
