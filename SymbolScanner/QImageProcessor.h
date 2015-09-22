@@ -22,6 +22,7 @@ public:
   QImageProcessor(const QImage &image, 
                   bool autoRotate,
                   bool invertMask,
+                  bool lineDetect,
                   FilterType filterPreviewType,
                   QColor filterUpperColor,
                   QColor filterLowerColor);
@@ -36,6 +37,7 @@ private:
   QImage _image;
   bool _autoRotate;
   bool _invertMask;
+  bool _lineDetect;
   FilterType _filterPreviewType;
   QColor _filterUpperColor;
   QColor _filterLowerColor;

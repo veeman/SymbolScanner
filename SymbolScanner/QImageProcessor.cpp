@@ -54,22 +54,8 @@ void calculateMatrix(std::vector<cv::Point2f>& pointList, float radius, std::vec
     for (size_t i = 1; i < pointList.size(); ++i)
       derivationY.push_back(pointList[i].y - pointList[i - 1].y);
 
-    //// calculate mean of derivation
-    //float mean = 0.0;
-    //for (auto& dy : derivationY)
-    //  mean += dy;
-    //mean /= derivationY.size();
-
-    //// calculate variance of derivation
-    //float variance = 0.0;
-    //for (auto& dy : derivationY)
-    //  variance += (mean - dy)*(mean - dy);
-    //variance /= derivationY.size();
-
     radius = (*std::max_element(derivationY.begin(), derivationY.end())) / 2;
   }
-
-  //cout << "Variance:" << radius << endl;
 
   /// find Lines *************
   std::vector<size_t> jumpLines;
@@ -147,6 +133,7 @@ void calculateMatrix(std::vector<cv::Point2f>& pointList, float radius, std::vec
 QImageProcessor::QImageProcessor(const QImage &image,
                                  bool autoRotate,
                                  bool invertMask,
+                                 bool lineDetect,
                                  FilterType filterPreviewType,
                                  QColor filterUpperColor,
                                  QColor filterLowerColor)
@@ -154,6 +141,7 @@ QImageProcessor::QImageProcessor(const QImage &image,
                                  _image(image),
                                  _autoRotate(autoRotate),
                                  _invertMask(invertMask),
+                                 _lineDetect(lineDetect),
                                  _filterPreviewType(filterPreviewType),
                                  _filterUpperColor(filterUpperColor),
                                  _filterLowerColor(filterLowerColor)
@@ -198,72 +186,75 @@ void QImageProcessor::run()
       cv::Mat maskedImage(org.size(), org.type(), cv::Scalar(255, 255, 255));
       org.copyTo(maskedImage, filteredImage);
 
-      // Line detection
-      std::vector<cv::Vec4i> lines;
-      cv::HoughLinesP(filteredImage, lines, 1, CV_PI / 180, 80, org.cols / 10, org.cols / 100);
-
-      // Calculate angles and sort lines in Horizontal and Vertical Lines, Skip diagonals
-      std::vector<float> angles;
-      std::vector<cv::Vec4i> linesH;
-      std::vector<cv::Vec4i> linesV;
-      angles.reserve(lines.size());
-      linesH.reserve(lines.size());
-      linesV.reserve(lines.size());
-
-      for (auto &line : lines)
-        angles.push_back(abs(atan2(line[1] - line[3], line[0] - line[2])));
-
-      float angleMin = *min_element(angles.begin(), angles.end());
-      float angleMax = *max_element(angles.begin(), angles.end());
-      float angleWidth = (angleMin + angleMax) / 3.;
-      float angleMinBorder = angleMin + angleWidth;
-      float angleMaxBorder = angleMax - angleWidth;
-
-      for (size_t i = 0; i < lines.size(); ++i)
+      if (_lineDetect)
       {
-        if (angles[i] < angleMinBorder)
-          linesV.push_back(lines[i]);
-        else
-          if (angles[i] > angleMaxBorder)
-            linesH.push_back(lines[i]);
-      }
+        // Line detection
+        std::vector<cv::Vec4i> lines;
+        cv::HoughLinesP(filteredImage, lines, 1, CV_PI / 180, 80, org.cols / 10, org.cols / 100);
 
-      // Draw Detected Lines
-      for (size_t i = 0; i < linesH.size(); i++)
-      {
-        cv::Point pt1(linesH[i][0], linesH[i][1]), pt2(linesH[i][2], linesH[i][3]);
-        cv::line(maskedImage, pt1, pt2, cv::Scalar(0, 0, 255), 4, CV_AA);
-      }
+        // Calculate angles and sort lines in Horizontal and Vertical Lines, Skip diagonals
+        std::vector<float> angles;
+        std::vector<cv::Vec4i> linesH;
+        std::vector<cv::Vec4i> linesV;
+        angles.reserve(lines.size());
+        linesH.reserve(lines.size());
+        linesV.reserve(lines.size());
 
-      for (size_t i = 0; i < linesV.size(); i++)
-      {
-        cv::Point pt1(linesV[i][0], linesV[i][1]), pt2(linesV[i][2], linesV[i][3]);
-        cv::line(maskedImage, pt1, pt2, cv::Scalar(0, 255, 0), 4, CV_AA);
-      }
+        for (auto &line : lines)
+          angles.push_back(abs(atan2(line[1] - line[3], line[0] - line[2])));
 
-      // Calculate Intersections between Horizontal and Vertical Lines
-      std::vector<cv::Point2f> interPoints;
-      interPoints.reserve(10000);
-      for (size_t i = 0; i < linesH.size(); i++)
-      {
-        for (size_t j = 0; j < linesV.size(); j++)
+        float angleMin = *min_element(angles.begin(), angles.end());
+        float angleMax = *max_element(angles.begin(), angles.end());
+        float angleWidth = (angleMin + angleMax) / 3.;
+        float angleMinBorder = angleMin + angleWidth;
+        float angleMaxBorder = angleMax - angleWidth;
+
+        for (size_t i = 0; i < lines.size(); ++i)
         {
-          cv::Point2f point = computeIntersect(linesH[i], linesV[j]);
-          if (point != cv::Point2f(-1, -1))
-            interPoints.push_back(point);
+          if (angles[i] < angleMinBorder)
+            linesV.push_back(lines[i]);
+          else
+            if (angles[i] > angleMaxBorder)
+              linesH.push_back(lines[i]);
         }
-      }
 
-      // Calculate Matrix 
-      std::vector<std::vector<cv::Point2f>> pointMatrix;
-      calculateMatrix(interPoints, -1, pointMatrix);
-
-      // Draw CornersAs
-      for (size_t y = 0; y < pointMatrix.size(); y++)
-      {
-        for (size_t x = 0; x < pointMatrix[y].size(); x++)
+        // Draw Detected Lines
+        for (size_t i = 0; i < linesH.size(); i++)
         {
-          circle(maskedImage, pointMatrix[y][x], 1, cv::Scalar(255, 0, 0), 10, CV_AA);
+          cv::Point pt1(linesH[i][0], linesH[i][1]), pt2(linesH[i][2], linesH[i][3]);
+          cv::line(maskedImage, pt1, pt2, cv::Scalar(0, 0, 255), 4, CV_AA);
+        }
+
+        for (size_t i = 0; i < linesV.size(); i++)
+        {
+          cv::Point pt1(linesV[i][0], linesV[i][1]), pt2(linesV[i][2], linesV[i][3]);
+          cv::line(maskedImage, pt1, pt2, cv::Scalar(0, 255, 0), 4, CV_AA);
+        }
+
+        // Calculate Intersections between Horizontal and Vertical Lines
+        std::vector<cv::Point2f> interPoints;
+        interPoints.reserve(10000);
+        for (size_t i = 0; i < linesH.size(); i++)
+        {
+          for (size_t j = 0; j < linesV.size(); j++)
+          {
+            cv::Point2f point = computeIntersect(linesH[i], linesV[j]);
+            if (point != cv::Point2f(-1, -1))
+              interPoints.push_back(point);
+          }
+        }
+
+        // Calculate Matrix 
+        std::vector<std::vector<cv::Point2f>> pointMatrix;
+        calculateMatrix(interPoints, -1, pointMatrix);
+
+        // Draw CornersAs
+        for (size_t y = 0; y < pointMatrix.size(); y++)
+        {
+          for (size_t x = 0; x < pointMatrix[y].size(); x++)
+          {
+            circle(maskedImage, pointMatrix[y][x], 1, cv::Scalar(255, 0, 0), 10, CV_AA);
+          }
         }
       }
 

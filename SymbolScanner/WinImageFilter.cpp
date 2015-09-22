@@ -55,6 +55,7 @@ void WinImageFilter::timerEvent(QTimerEvent * event)
     bool autoRotate = filterMode == 0 ? (_ui.checkBoxGridAutoRotate->checkState() == Qt::Checked) : false;
     bool invertedMask = filterMode == 0 ? (_ui.checkBoxGridInvertMask->checkState() == Qt::Checked) :
       (_ui.checkBoxSymbolInvertMask->checkState() == Qt::Checked);
+    bool lineDetect = filterMode == 0;
     int filterPreviewType = filterMode == 0 ? _ui.buttonGroupGridPreviewSelection->checkedButton()->property("id").toInt() :
       _ui.buttonGroupSymbolPreviewSelection->checkedButton()->property("id").toInt();
     QColor filterUpperColor = _ui.widgetUpperColorSelector->color();
@@ -77,7 +78,7 @@ void WinImageFilter::timerEvent(QTimerEvent * event)
     _configChanged = false;
     _processRunning = true;
 
-    auto taskProcess = new QImageProcessor(image, autoRotate, invertedMask, previewType, filterUpperColor, filterLowerColor);
+    auto taskProcess = new QImageProcessor(image, autoRotate, invertedMask, lineDetect, previewType, filterUpperColor, filterLowerColor);
     connect(taskProcess, SIGNAL(finished(const QImage&)),
             this, SLOT(refreshPreview(const QImage&)));
     QThreadPool::globalInstance()->start(taskProcess);
@@ -92,12 +93,30 @@ void WinImageFilter::refreshPreview(const QImage& image)
 
 void WinImageFilter::on_tabWidget_currentChanged(int index)
 {
-  updateChanges([](QImageFilterOptions&){});
+  updateChanges([&](QImageFilterOptions& options)
+  {
+    _ui.widgetLowerColorSelector->blockSignals(true);
+    _ui.widgetUpperColorSelector->blockSignals(true);
+
+    if (_ui.tabWidget->currentWidget()->property("id").toInt() == 0)
+    {
+      _ui.widgetLowerColorSelector->setColor(options.gridLowerColor);
+      _ui.widgetUpperColorSelector->setColor(options.gridUpperColor);
+    }
+    else
+    {
+      _ui.widgetLowerColorSelector->setColor(options.symbolLowerColor);
+      _ui.widgetUpperColorSelector->setColor(options.symbolUpperColor);
+    }
+
+    _ui.widgetLowerColorSelector->blockSignals(false);
+    _ui.widgetUpperColorSelector->blockSignals(false);
+  });
 }
 
 void WinImageFilter::on_checkBoxGridAutoRotate_stateChanged(int state)
 {
-  updateChanges([&](QImageFilterOptions& options)
+  updateChanges([state](QImageFilterOptions& options)
   {
     options.autoRotate = state == Qt::Checked;
   });
@@ -105,7 +124,7 @@ void WinImageFilter::on_checkBoxGridAutoRotate_stateChanged(int state)
 
 void WinImageFilter::on_checkBoxGridInvertMask_stateChanged(int state)
 {
-  updateChanges([&](QImageFilterOptions& options)
+  updateChanges([state](QImageFilterOptions& options)
   {
     options.gridMaskInverted = state == Qt::Checked;
   });
@@ -118,7 +137,7 @@ void WinImageFilter::on_buttonGroupGridPreviewSelection_buttonClicked(QAbstractB
 
 void WinImageFilter::on_checkBoxSymbolUseMask_stateChanged(int state)
 {
-  updateChanges([&](QImageFilterOptions& options)
+  updateChanges([state](QImageFilterOptions& options)
   {
     options.symbolFilterEnabled = state == Qt::Checked;
   });
@@ -126,7 +145,7 @@ void WinImageFilter::on_checkBoxSymbolUseMask_stateChanged(int state)
 
 void WinImageFilter::on_checkBoxSymbolInvertMask_stateChanged(int state)
 {
-  updateChanges([&](QImageFilterOptions& options)
+  updateChanges([state](QImageFilterOptions& options)
   {
     options.symbolMaskInverted = state == Qt::Checked;
   });
@@ -167,7 +186,20 @@ void WinImageFilter::onc_listViewSelectionModel_currentChanged(const QModelIndex
     foreach(QWidget* w, findChildren<QWidget*>())
       w->blockSignals(true);
 
-    // todo load options to widgets
+    _ui.checkBoxGridAutoRotate->setCheckState(options.autoRotate ? Qt::Checked : Qt::Unchecked);
+    _ui.checkBoxGridInvertMask->setCheckState(options.gridMaskInverted ? Qt::Checked : Qt::Unchecked);
+    _ui.checkBoxSymbolUseMask->setCheckState(options.symbolFilterEnabled ? Qt::Checked : Qt::Unchecked);
+    _ui.checkBoxSymbolInvertMask->setCheckState(options.symbolMaskInverted ? Qt::Checked : Qt::Unchecked);
+
+    if (_ui.tabWidget->currentWidget()->property("id").toInt() == 0)
+    {
+      _ui.widgetLowerColorSelector->setColor(options.gridLowerColor);
+      _ui.widgetUpperColorSelector->setColor(options.gridUpperColor);
+    } else
+    {
+      _ui.widgetLowerColorSelector->setColor(options.symbolLowerColor);
+      _ui.widgetUpperColorSelector->setColor(options.symbolUpperColor);
+    }
 
     foreach(QWidget* w, findChildren<QWidget*>())
       w->blockSignals(false);
@@ -187,14 +219,23 @@ void WinImageFilter::updateChanges(std::function<void(QImageFilterOptions&)> cal
 {
   if (!_currentFileName.isEmpty() && callback)
   {
-    auto optionsCache = parentMainWindow()->imageFilterOptions();
+    auto& optionsCache = parentMainWindow()->imageFilterOptions();
 
     if (!optionsCache.contains(_currentFileName))
     {
-      // todo set default values
+      QImageFilterOptions newOptions;
+      newOptions.autoRotate = (_ui.checkBoxGridAutoRotate->checkState() == Qt::Checked);
+      newOptions.gridLowerColor = _ui.widgetLowerColorSelector->property("color").value<QColor>();
+      newOptions.gridUpperColor = _ui.widgetUpperColorSelector->property("color").value<QColor>();
+      newOptions.gridMaskInverted = (_ui.checkBoxGridInvertMask->checkState() == Qt::Checked);
+      newOptions.symbolFilterEnabled = (_ui.checkBoxSymbolUseMask->checkState() == Qt::Checked);
+      newOptions.symbolMaskInverted = (_ui.checkBoxSymbolInvertMask->checkState() == Qt::Checked);
+      newOptions.symbolLowerColor = _ui.widgetLowerColorSelector->property("color").value<QColor>();
+      newOptions.symbolUpperColor = _ui.widgetUpperColorSelector->property("color").value<QColor>();
+      optionsCache[_currentFileName] = newOptions;
     }
 
-    auto options = optionsCache[_currentFileName];
+    auto& options = optionsCache[_currentFileName];
     callback(options);
   }
 

@@ -50,6 +50,9 @@ Make sure the lines forms all cross points of the grid.</string>
           <layout class="QGridLayout" name="gridLayout">
            <item row="0" column="0">
             <widget class="QCheckBox" name="checkBoxGridAutoRotate">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="text">
               <string>Auto Rotate</string>
              </property>
@@ -322,7 +325,7 @@ Make sure the lines forms all cross points of the grid.</string>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroupGridPreviewSelection"/>
   <buttongroup name="buttonGroupSymbolPreviewSelection"/>
+  <buttongroup name="buttonGroupGridPreviewSelection"/>
  </buttongroups>
 </ui>
