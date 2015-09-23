@@ -259,9 +259,9 @@ Optional you can apply a symbol filter to extract the lines in the same way.</st
            <widget class="WidgetColorSelector" name="widgetUpperColorSelector" native="true">
             <property name="color" stdset="0">
              <color>
-              <red>200</red>
-              <green>153</green>
-              <blue>154</blue>
+              <red>240</red>
+              <green>155</green>
+              <blue>157</blue>
              </color>
             </property>
            </widget>
@@ -330,7 +330,7 @@ Optional you can apply a symbol filter to extract the lines in the same way.</st
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroupSymbolPreviewSelection"/>
   <buttongroup name="buttonGroupGridPreviewSelection"/>
+  <buttongroup name="buttonGroupSymbolPreviewSelection"/>
  </buttongroups>
 </ui>
