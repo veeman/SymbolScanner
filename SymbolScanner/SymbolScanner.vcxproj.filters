@@ -181,6 +181,9 @@
     <ClCompile Include="QImageExtractor.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="cvFilterExtractor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QImageFilterOptions.h">
@@ -203,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_WinImageProcessor.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cvFilterExtractor.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

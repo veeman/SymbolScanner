@@ -154,6 +154,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cvFilterExtractor.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_QAspectRatioPixmapLabel.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -242,6 +243,7 @@
     <ClCompile Include="WinSymbolScanner.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cvFilterExtractor.h" />
     <ClInclude Include="GeneratedFiles\ui_WidgetColorSelector.h" />
     <ClInclude Include="GeneratedFiles\ui_WinImageFilter.h" />
     <ClInclude Include="GeneratedFiles\ui_WinImageProcessor.h" />
