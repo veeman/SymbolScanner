@@ -17,11 +17,16 @@ public:
   virtual void process(void) override;
   virtual void pageSelected(void) override;
 
-  public slots:
+public slots:
+  void on_pushButtonAbort_clicked(void);
+  void on_treeWidget_itemChanged(QTreeWidgetItem * item, int column);
+  
   void reFillProcessList(void);
+  
 private:
   Ui::WinImageProcessor _ui;
   bool _processRunning;
+  volatile bool _processHalt;
 };
 
 

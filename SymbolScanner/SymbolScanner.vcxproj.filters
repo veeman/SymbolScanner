@@ -80,6 +80,9 @@
     <CustomBuild Include="WinImageProcessor.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="QImageExtractor.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SymbolScanner.rc" />
@@ -168,6 +171,15 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_WinImageProcessor.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QImageExtractor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QImageExtractor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="QImageExtractor.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

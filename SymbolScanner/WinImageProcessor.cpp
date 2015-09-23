@@ -1,6 +1,8 @@
 #include "WinImageProcessor.h"
 #include "WinSymbolScanner.h"
+#include "QImageExtractor.h"
 #include <QFileInfo>
+#include <QThreadPool>
 
 WinImageProcessor::WinImageProcessor(QWidget *parent)
     : QMainWindowChild(parent),
@@ -39,19 +41,52 @@ void WinImageProcessor::pageSelected(void)
 
 void WinImageProcessor::process(void)
 {
-  if (_processRunning)
+  // get needed process informations
+  quint32 imOutputType = _ui.radioButtonNIST->isChecked();
+  QString imOutput(_ui.lineEditOutput->text());
+  QSize imSize(_ui.spinBoxWidth->value(), _ui.spinBoxHeight->value());
+  auto& imageProcessList = parentMainWindow()->imageFilterOptions();
+
+  // clear cache to get more ram
+  parentMainWindow()->imageCacheClear();
+
+  // disable controls
+  parentMainWindow()->setEnabledWizardButtons(0);
+  _ui.pushButtonAbort->setEnabled(true);
+
+  // prepare and run process
+  _processRunning = true;
+  _processHalt = false;
+  auto taskProcess = new QImageExtractor(&_processHalt,
+                                         imOutputType,
+                                         imOutput,
+                                         imSize,
+                                         &imageProcessList);
+  QThreadPool::globalInstance()->start(taskProcess);
+}
+
+void WinImageProcessor::on_pushButtonAbort_clicked(void)
+{
+  _processHalt = true;
+  _ui.pushButtonAbort->setEnabled(false);
+}
+
+void WinImageProcessor::on_treeWidget_itemChanged(QTreeWidgetItem * item, int column)
+{
+  if (!item || !(column == 1))
+      return;
+
+  QString text = item->text(1);
+  if (text.length() > 1)
   {
-
+    text = text.left(1);
+    item->setText(1, text);
   }
-  else
-  {
-    parentMainWindow()->setEnabledWizardButtons(0);
-    parentMainWindow()->imageCacheClear();
 
-    _processRunning = true;
-
-    auto& imageProcessList = parentMainWindow()->imageFilterOptions();
-  }
+  const auto filePath = item->data(0, Qt::UserRole).toString();
+  auto& optionList = parentMainWindow()->imageFilterOptions();
+  
+  optionList[filePath].value = text;
 }
 
 void WinImageProcessor::reFillProcessList()
@@ -68,7 +103,12 @@ void WinImageProcessor::reFillProcessList()
     auto options = optionList[key];
     auto filePath = key;
     auto fInfo = QFileInfo(filePath);
-    auto list = QStringList() << fInfo.fileName() << fInfo.baseName();
+
+    if (options.value.isEmpty())
+      options.value = fInfo.baseName();
+
+    auto list = QStringList() << fInfo.fileName();
+    list << options.value;
     list << QString("%0").arg(options.autoRotate);
     list << options.gridLowerColor.name();
     list << options.gridUpperColor.name();
