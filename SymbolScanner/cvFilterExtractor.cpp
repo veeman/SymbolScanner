@@ -177,3 +177,20 @@ void sortLinesHorozontalAndVertical(std::vector<cv::Vec4i>& lines,
         linesH.push_back(lines[i]);
   }
 }
+
+void filterImageRange(cv::Mat& src, cv::Mat& dst, bool invert, const cv::Scalar& lo, const cv::Scalar& up)
+{
+  cv::inRange(src, lo, up, dst);
+
+  if (invert)
+    cv::bitwise_not(dst, dst);
+}
+
+void rotateImage(cv::Mat& src, cv::Mat& dst, double angle)
+{
+  int len = std::max(src.cols, src.rows);
+  cv::Point2f pt(len / 2., len / 2.);
+  cv::Mat r = cv::getRotationMatrix2D(pt, angle, 1.0);
+
+  cv::warpAffine(src, dst, r, cv::Size(len, len));
+}

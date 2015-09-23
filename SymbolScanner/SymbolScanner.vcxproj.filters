@@ -178,10 +178,10 @@
     <ClCompile Include="GeneratedFiles\Release\moc_QImageExtractor.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="QImageExtractor.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="cvFilterExtractor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QImageExtractor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

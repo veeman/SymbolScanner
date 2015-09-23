@@ -34,10 +34,7 @@ void QImageProcessor::run()
       cv::cvtColor(org, hsvImage, CV_BGR2HSV);
 
       cv::Mat filteredImage;
-      cv::inRange(hsvImage, qColorToCvScalar(_filterLowerColor), qColorToCvScalar(_filterUpperColor), filteredImage);
-
-      if (_invertMask)
-        cv::bitwise_not(filteredImage, filteredImage);
+      filterImageRange(hsvImage, filteredImage, _invertMask, qColorToCvScalar(_filterLowerColor), qColorToCvScalar(_filterUpperColor));
 
       QImage editedImage = cvMatToQImage(filteredImage).copy();
       emit finished(editedImage);
@@ -51,11 +48,8 @@ void QImageProcessor::run()
       cv::cvtColor(org, hsvImage, CV_BGR2HSV);
 
       cv::Mat filteredImage;
-      cv::inRange(hsvImage, qColorToCvScalar(_filterLowerColor), qColorToCvScalar(_filterUpperColor), filteredImage);
-
-      if (_invertMask)
-        cv::bitwise_not(filteredImage, filteredImage);
-
+      filterImageRange(hsvImage, filteredImage, _invertMask, qColorToCvScalar(_filterLowerColor), qColorToCvScalar(_filterUpperColor));
+      
       cv::Mat maskedImage(org.size(), org.type(), cv::Scalar(255, 255, 255));
       org.copyTo(maskedImage, filteredImage);
 

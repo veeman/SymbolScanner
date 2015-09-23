@@ -133,7 +133,7 @@ void WinImageProcessor::reFillProcessList()
 
   for (auto &key: keys)
   {
-    auto options = optionList[key];
+    auto& options = optionList[key];
     auto filePath = key;
     auto fInfo = QFileInfo(filePath);
 
