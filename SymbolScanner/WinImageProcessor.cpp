@@ -8,7 +8,13 @@ WinImageProcessor::WinImageProcessor(QWidget *parent)
 {
   _ui.setupUi(this);
 
-  _ui.treeWidget->setItemDelegateForColumn(0, new QNoEditDelegate());
+  auto delegate = new QNoEditDelegate();
+  for (int i = 0; i < _ui.treeWidget->columnCount(); ++i)
+  {
+    _ui.treeWidget->resizeColumnToContents(i);
+    if (i != 1)
+      _ui.treeWidget->setItemDelegateForColumn(i, delegate);
+  }
 }
 
 WinImageProcessor::~WinImageProcessor()
@@ -40,10 +46,11 @@ void WinImageProcessor::process(void)
   else
   {
     parentMainWindow()->setEnabledWizardButtons(0);
+    parentMainWindow()->imageCacheClear();
 
-    // TODO: create jobs
-    auto& optionList = parentMainWindow()->imageFilterOptions();
-    auto& imageCache = parentMainWindow()->imageCache();
+    _processRunning = true;
+
+    auto& imageProcessList = parentMainWindow()->imageFilterOptions();
   }
 }
 
@@ -58,10 +65,23 @@ void WinImageProcessor::reFillProcessList()
 
   for (auto &key: keys)
   {
+    auto options = optionList[key];
     auto filePath = key;
     auto fInfo = QFileInfo(filePath);
-    auto item = new QTreeWidgetItem(_ui.treeWidget, QStringList() << fInfo.fileName() << fInfo.baseName());
+    auto list = QStringList() << fInfo.fileName() << fInfo.baseName();
+    list << QString("%0").arg(options.autoRotate);
+    list << options.gridLowerColor.name();
+    list << options.gridUpperColor.name();
+    list << QString("%0").arg(options.gridMaskInverted);
+    list << QString("%0").arg(options.symbolFilterEnabled);
+    list << options.symbolLowerColor.name();
+    list << options.symbolUpperColor.name();
+    list << QString("%0").arg(options.symbolMaskInverted);
+
+    auto item = new QTreeWidgetItem(_ui.treeWidget, list);
     item->setData(0, Qt::UserRole, filePath);
     item->setFlags(item->flags() | Qt::ItemIsEditable);
   }
+
+  _ui.treeWidget->resizeColumnToContents(0);
 }

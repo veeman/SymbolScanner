@@ -7,6 +7,8 @@
 class QImageFilterOptions
 {
 public:
+  QString value;
+
   bool autoRotate;
 
   QColor gridLowerColor;

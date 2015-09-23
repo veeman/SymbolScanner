@@ -34,6 +34,7 @@ public:
   void recacheImages(const QString& directory);
   void imageFileLoaded(const QString& fileName, const QImage& image);
 
+  void imageCacheClear(void);
   const QImageCache& imageCache(void) const;
   QImageFilterOptionsCache& imageFilterOptions();
 
@@ -45,6 +46,11 @@ private:
   QImageCache _imageCache;
   QImageFilterOptionsCache _imageFilterOptions;
 };
+
+inline void WinSymbolScanner::imageCacheClear(void)
+{
+  _imageCache.clear();
+}
 
 inline const QImageCache& WinSymbolScanner::imageCache(void) const
 {

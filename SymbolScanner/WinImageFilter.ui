@@ -14,8 +14,10 @@
    <string>WinImageFilterOptions</string>
   </property>
   <property name="description" stdset="0">
-   <string>In this step move the slider of the lower and upper color border until you see only the grid of your symbol image.
-Make sure the lines forms all cross points of the grid.</string>
+   <string>Select the file wich you want to process.
+In the grid option move the lower and upper color border until you see only the grid of your symbol image.
+Make sure the lines forms all cross points of the grid.
+Optional you can apply a symbol filter to extract the lines in the same way.</string>
   </property>
   <property name="navButtons" stdset="0">
    <UInt>11</UInt>

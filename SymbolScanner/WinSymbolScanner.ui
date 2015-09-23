@@ -509,12 +509,11 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="WinImageSelector" name="pageSelect"/>
       <widget class="WinImageFilter" name="pageFilter"/>
       <widget class="WinImageProcessor" name="pageProcessOptions"/>
-      <widget class="QWidget" name="page"/>
      </widget>
     </item>
     <item>
