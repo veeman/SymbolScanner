@@ -19,8 +19,12 @@ public:
 
 public slots:
   void on_pushButtonAbort_clicked(void);
+  void on_radioButtonMNIST_clicked(void);
+  void on_radioButtonImage_clicked(void);
   void on_treeWidget_itemChanged(QTreeWidgetItem * item, int column);
   
+  void onc_processThread_finished(void);
+
   void reFillProcessList(void);
   
 private:

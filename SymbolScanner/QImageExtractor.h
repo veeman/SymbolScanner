@@ -22,6 +22,10 @@ public:
   void run();
 
 signals:
+  void finished();
+  void progressDeterminated(int value);
+  void progressChanged(int value);
+  void progressMessage(const QString& msg);
 
 private:
   // Inspired by http://www.walletfox.com/course/qrunnableexample.php

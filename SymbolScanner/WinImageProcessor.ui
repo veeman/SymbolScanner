@@ -88,13 +88,13 @@ If you done select the output format, folder or file and press process.</string>
       <string>Output options</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="8">
-       <widget class="QRadioButton" name="radioButtonNIST">
+      <item row="0" column="7">
+       <widget class="QRadioButton" name="radioButtonMNIST">
         <property name="text">
-         <string>NIST</string>
+         <string>MNIST</string>
         </property>
         <property name="checked">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -132,7 +132,7 @@ If you done select the output format, folder or file and press process.</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="10">
+      <item row="0" column="9">
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -155,23 +155,13 @@ If you done select the output format, folder or file and press process.</string>
       <item row="0" column="5">
        <widget class="QLineEdit" name="lineEditOutput"/>
       </item>
-      <item row="0" column="6">
-       <widget class="QPushButton" name="pushButton">
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>16777215</height>
-         </size>
-        </property>
+      <item row="0" column="8">
+       <widget class="QRadioButton" name="radioButtonImage">
         <property name="text">
-         <string>...</string>
+         <string>Images</string>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="9">
-       <widget class="QRadioButton" name="radioButtonPicture">
-        <property name="text">
-         <string>PNG</string>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
