@@ -62,6 +62,9 @@ void calculateMatrix(std::vector<cv::Point2f>& pointList,
                      float radius, 
                      std::vector<std::vector<cv::Point2f>>& pointMatrix)
 {
+  if (!pointList.size())
+    return;
+
   std::sort(pointList.begin(), pointList.end(), compareY());
 
   /// try to find automaticly pixel distance *************
@@ -161,6 +164,9 @@ void sortLinesHorozontalAndVertical(std::vector<cv::Vec4i>& lines,
 
   for (auto &line : lines)
     angles.push_back(abs(atan2(line[1] - line[3], line[0] - line[2])));
+
+  if (!angles.size())
+    return;
 
   float angleMin = *min_element(angles.begin(), angles.end());
   float angleMax = *max_element(angles.begin(), angles.end());

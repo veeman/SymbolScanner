@@ -73,16 +73,19 @@ void QImageProcessor::run()
         calculateMatrix(interPoints, -1, pointMatrix);
 
         // Draw Detected Lines
-        for (size_t i = 0; i < linesH.size(); i++)
+        if ((linesH.size() > 0) && (linesV.size() > 0)) // * bug fix sometime access vialation on cv::line (why?)
         {
-          cv::Point pt1(linesH[i][0], linesH[i][1]), pt2(linesH[i][2], linesH[i][3]);
-          cv::line(maskedImage, pt1, pt2, cv::Scalar(0, 0, 255), 4, CV_AA);
-        }
+          for (size_t i = 0; i < linesH.size(); i++)
+          {
+            cv::Point pt1(linesH[i][0], linesH[i][1]), pt2(linesH[i][2], linesH[i][3]);
+            cv::line(maskedImage, pt1, pt2, cv::Scalar(0, 0, 255), 4, CV_AA);
+          }
 
-        for (size_t i = 0; i < linesV.size(); i++)
-        {
-          cv::Point pt1(linesV[i][0], linesV[i][1]), pt2(linesV[i][2], linesV[i][3]);
-          cv::line(maskedImage, pt1, pt2, cv::Scalar(0, 255, 0), 4, CV_AA);
+          for (size_t i = 0; i < linesV.size(); i++)
+          {
+            cv::Point pt1(linesV[i][0], linesV[i][1]), pt2(linesV[i][2], linesV[i][3]);
+            cv::line(maskedImage, pt1, pt2, cv::Scalar(0, 255, 0), 4, CV_AA);
+          }
         }
 
         // Draw Corners
